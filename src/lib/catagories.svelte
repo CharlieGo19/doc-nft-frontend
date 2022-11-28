@@ -54,8 +54,8 @@
     </ul>
     <div class="hidden lg:w-full w-2/3 md:grid lg:grid-cols-4 md:grid-cols-2 gap-4 m-auto">
         {#each catagories as catagorie}
-            <div class="relative aspect-square border-2 rounded-2xl shadow-xl">
-                <img src="{catagorie.image}" alt="{catagorie.urlText}" class="absolute w-full h-full border-2 border-mint-edge rounded-xl shadow-2xl object-cover" />
+            <div class="relative aspect-square  border-2 border-mint-edge rounded-xl shadow-2xl">
+                <img src="{catagorie.image}" alt="{catagorie.urlText}" class="absolute w-full h-full rounded-xl object-cover" />
                 <span class="absolute w-full h-1/5 bottom-0 rounded-b-xl bg-black/70 backdrop-blur-sm font-bold text-white text-center">
                     <p class="mt-[15px]">
                         {catagorie.urlText}

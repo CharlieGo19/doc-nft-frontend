@@ -13,7 +13,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
     </button>
-    <ul bind:this={carousel} class="absolute flex w-full z-10 mt-10 no-scrollbar overflow-x-auto gap-7 snap-x snap-mandatory scroll-smooth 
+    <ul bind:this={carousel} class="absolute flex w-full z-10 pt-10 no-scrollbar overflow-x-auto gap-7 snap-x snap-mandatory scroll-smooth 
                                 sm:before:content-none sm:pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw] md:rounded-2xl">
         {#each popularCollections as {name, verified, itemOneSrc, itemTwoSrc, itemThreeSrc, size}}
             <li class="relative h-80 w-72 shrink-0 snap-center rounded-2xl border-2 border-mint-edge shadow-xl font-Poppins  bg-white">
@@ -36,8 +36,7 @@
                     </p>
                 </div>
                 <div class="w-1/2 pr-2">
-                    <button type="submit" class="h-[24px] w-24 border-[1px] mt-[11px] border-mint-edge rounded-md float-right
-                                                    hover:bg-mint-edge hover:text-white text-sm font-semibold">EXPLORE</button>
+                    <button type="submit" class="h-[24px] w-24 border-[1px] mt-[11px] border-mint-edge rounded-md float-right hover:bg-mint-edge hover:text-white text-sm font-semibold">EXPLORE</button>
                 </div>
             </div>
             </li>

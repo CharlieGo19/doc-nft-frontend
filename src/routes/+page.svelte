@@ -29,25 +29,30 @@
     </div>
     <div class="flex flex-col md:max-w-7xl w-full">
         <div class="flex flex-row text-stone-700">
-            <div class="w-1/2 float-left font-orbitron font-bold text-3xl">
+            <div class="w-full font-orbitron font-bold text-center text-3xl md:w-1/2 md:text-left">
                 Most 🔥
             </div>
-            <div class="float-right w-1/2">
-                <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm 
-                rounded-md hover:bg-mint-edge hover:text-white">
+            <div class="hidden float-right w-1/2 md:block">
+                <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
                     <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
                     <p class="text-xl"> > </p>
                 </button>
             </div>
         </div>
         <FireCarousel {nftsFire} />
+        <div class="w-full pt-10 md:hidden">
+            <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] mx-auto border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
+                <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
+                <p class="text-xl"> > </p>
+            </button>
+        </div>
     </div>
     <div class="flex flex-col md:max-w-7xl w-full">
         <div class="flex flex-row text-stone-700">
-            <div class="w-1/2 float-left font-orbitron font-bold text-3xl">
+            <div class="w-full text-center font-orbitron font-bold text-3xl md:w-1/2 md:text-left">
                 TOP COLLECTIONS
             </div>
-            <div class="float-right w-1/2">
+            <div class="hidden float-right w-1/2 md:block">
                 <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm 
                 rounded-md hover:bg-mint-edge hover:text-white">
                     <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
@@ -56,28 +61,39 @@
             </div>
         </div>
         <TopCollectionsCarousel {topNftCollections} />
+        <div class="w-full pt-10 md:hidden">
+            <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] mx-auto border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
+                <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
+                <p class="text-xl"> > </p>
+            </button>
+        </div>
     </div>
     <div class="flex flex-col md:max-w-7xl w-full">
         <div class="flex flex-row text-stone-700">
-            <div class="w-1/2 float-left font-orbitron font-bold text-3xl">
+            <div class="w-full text-center font-orbitron font-bold text-3xl md:w-1/2 md:text-left">
                 POPULAR COLLECTIONS
             </div>
-            <div class="float-right w-1/2">
-                <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm 
-                rounded-md hover:bg-mint-edge hover:text-white">
+            <div class="hidden float-right w-1/2 md:block">
+                <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
                     <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
                     <p class="text-xl"> > </p>
                 </button>
             </div>
         </div>
         <PopularCollectionsCarousel {popularCollections} />
+        <div class="w-full pt-10 md:hidden">
+            <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] mx-auto border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
+                <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
+                <p class="text-xl"> > </p>
+            </button>
+        </div>
     </div>
     <div class="flex flex-col md:max-w-7xl w-full">
         <div class="flex flex-row text-stone-700">
-            <div class="w-1/2 float-left font-orbitron font-bold text-3xl">
+            <div class="w-full text-center font-orbitron font-bold text-3xl md:w-1/2 md:text-left">
                 JUST SOLD
             </div>
-            <div class="float-right w-1/2">
+            <div class="hidden float-right w-1/2 md:block">
                 <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] float-right border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm 
                 rounded-md hover:bg-mint-edge hover:text-white">
                     <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
@@ -86,9 +102,15 @@
             </div>
         </div>
         <JustSoldCarousel {nftsSold} />
+        <div class="w-full pt-10 md:hidden">
+            <button type="button" class="flex flex-row align-middle h-8 w-32 mt-[2px] mx-auto border-2 border-mint-edge bg-white font-Poppins font-semibold text-sm rounded-md hover:bg-mint-edge hover:text-white">
+                <p class="w-5/6 leading-7 align-middle">EXPLORE ALL</p>
+                <p class="text-xl"> > </p>
+            </button>
+        </div>
     </div>
     <div class="flex flex-col md:max-w-7xl w-full font-orbitron text-stone-700">
-        <div class="float-left font-bold text-3xl">
+        <div class="text-center font-bold text-3xl md:text-left">
             CREATE AND SELL YOUR ART
         </div>
         <div class="grid lg:grid-cols-4 md:grid-cols-2 place-items-center grid-cols-1 gap-4 lg:w-full w-4/5 m-auto pt-12">
@@ -167,7 +189,7 @@
         </div>
     </div>
     <div class="flex flex-col md:max-w-7xl w-full">
-        <div class="float-left font-orbitron font-bold text-3xl text-stone-700">
+        <div class="text-center font-orbitron font-bold text-3xl text-stone-700 md:text-left">
             EXPLORE {$nftMarketPlace}
         </div>
         <Catagories />
