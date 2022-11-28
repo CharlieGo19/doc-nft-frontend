@@ -68,7 +68,7 @@ export const homepageLaunchPadFeed: NFTcard[] = [
     {
         name: 'Funk',
         creator: 'Spacebar',
-        src: '/temp_demo/spacebar.png',
+        src: '/temp_demo/spacebar.jpg',
         fp: 200
     },
     {
@@ -320,7 +320,7 @@ export const homepagePopularCollections: PopularCollection[] = [
         name: 'Wen Moon',
         verified: true,
         itemOneSrc: '/temp_demo/spacebar2.jpg',
-        itemTwoSrc: '/temp_demo/spacebar.png',
+        itemTwoSrc: '/temp_demo/spacebar.jpg',
         itemThreeSrc: '/temp_demo/spacebar3.jpg',
         size: 4206
     },
@@ -336,7 +336,7 @@ export const homepagePopularCollections: PopularCollection[] = [
         name: 'Wen Moon',
         verified: true,
         itemOneSrc: '/temp_demo/spacebar2.jpg',
-        itemTwoSrc: '/temp_demo/spacebar.png',
+        itemTwoSrc: '/temp_demo/spacebar.jpg',
         itemThreeSrc: '/temp_demo/spacebar3.jpg',
         size: 4206
     },
@@ -352,7 +352,7 @@ export const homepagePopularCollections: PopularCollection[] = [
         name: 'Wen Moon',
         verified: true,
         itemOneSrc: '/temp_demo/spacebar2.jpg',
-        itemTwoSrc: '/temp_demo/spacebar.png',
+        itemTwoSrc: '/temp_demo/spacebar.jpg',
         itemThreeSrc: '/temp_demo/spacebar3.jpg',
         size: 4206
     },
@@ -368,7 +368,7 @@ export const homepagePopularCollections: PopularCollection[] = [
         name: 'Wen Moon',
         verified: true,
         itemOneSrc: '/temp_demo/spacebar2.jpg',
-        itemTwoSrc: '/temp_demo/spacebar.png',
+        itemTwoSrc: '/temp_demo/spacebar.jpg',
         itemThreeSrc: '/temp_demo/spacebar3.jpg',
         size: 4206
     },
@@ -384,7 +384,7 @@ export const homepagePopularCollections: PopularCollection[] = [
         name: 'Wen Moon',
         verified: true,
         itemOneSrc: '/temp_demo/spacebar2.jpg',
-        itemTwoSrc: '/temp_demo/spacebar.png',
+        itemTwoSrc: '/temp_demo/spacebar.jpg',
         itemThreeSrc: '/temp_demo/spacebar3.jpg',
         size: 4206
     },
