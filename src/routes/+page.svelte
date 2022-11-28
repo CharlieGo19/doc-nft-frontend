@@ -91,7 +91,7 @@
         <div class="float-left font-bold text-3xl">
             CREATE AND SELL YOUR ART
         </div>
-        <div class="grid lg:grid-cols-4 md:grid-cols-2 place-items-center grid-cols-1 gap-4 lg:w-full w-2/3 m-auto pt-12">
+        <div class="grid lg:grid-cols-4 md:grid-cols-2 place-items-center grid-cols-1 gap-4 lg:w-full w-4/5 m-auto pt-12">
             <div class="max-w-[305px] aspect-square border-2 border-mint-edge rounded-2xl bg-white shadow-xl">
                 <div class="flex items-center justify-center h-2/5">
                     <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">

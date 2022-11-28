@@ -39,7 +39,7 @@
     ]
 </script>
 <!-- TODO: Fix Links i.e. add filters -->
-<div class="flex flex-row w-full h-[400px] pt-14">
+<div class="flex flex-row w-full pt-14">
     <ul class="md:hidden flex w-full no-scrollbar overflow-x-auto gap-7 snap-x snap-mandatory scroll-smooth pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw]">
         {#each catagories as catagorie}
             <li class="relative w-72 max-h-[300px] h-[300px] shrink-0 snap-center">
