@@ -19,7 +19,7 @@
 <!-- TODO: Add on:hover show full image -->
 <!-- TODO: Request -->
 <div class="flex flex-col w-full items-center space-y-20">
-    <div class="flex items-center justify-center md:max-w-7xl w-4/5 text-center">
+    <div class="flex items-center justify-center w-4/5 md:max-w-7xl text-center">
         <h1 class="font-orbitron md:text-4xl text-lg">DISCOVER, COLLECT AND SELL <span class="text-teal-600">NFTS</span>.</h1>
     </div>
     <!-- use this for upcoming Launchpad events?-->

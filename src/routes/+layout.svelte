@@ -7,7 +7,7 @@
     export const prerender = true;
 
     let showAccountMenu: boolean = false;
-    let showMobileMenu: boolean = false;
+    let showMobileMenu: boolean = false; // TODO: Change
     let showResourcesMenu: boolean = false;
 
     function closeMenu(event: KeyboardEvent): void {
@@ -29,82 +29,91 @@
 
 <svelte:window on:keydown={closeMenu}/>
 <!-- TODO: Change h-screen to h-full when content added -->
-<div class="h-screen w-full flex flex-col space-y-14 overflow-x-hidden md:overflow-y-auto bg-gradient-to-b from-[#82FFF2] to-white"> <!--bg-gradient-to-b from-light-mode-mint via-white to-light-mode-mint"> -->
-    <div class="flex w-full items-center md:px-6 md:py-2">
-        <div class="hidden flex-row w-full h-11 justify-between text-sm px-6
-                    place-items-center text-center md:flex max-w-7xl m-auto">
-        <div id="{$nftMarketPlace}" class="grow z-0">
-            <a href="/">{$nftMarketPlace}</a>
-        </div>
-        <div id="search" class="grow-2 mx-auto my-auto">
-            <!-- TODO: Provide drop down with options of filtered NFTs / Projects-->
-            <input class="border-none w-full bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
-                type="search" placeholder="Search items, collections & accounts">
-        </div>
-        <div id="launchPad" class="grow">Launch Pad</div>
-        <div id="explore" class="grow">Explore</div>
-        <div id="activity" class="grow">Activity</div>
-        <div id="dao" class="grow">DAO</div>
-        <div id="raffle" class="grow">Raffle</div> 
-        <!-- TODO: Add hover effects -->
-        <div id="account" class="relative inline-block text-left grow">
-            <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="account-menu-button" aria-expanded="true" aria-haspopup="true" on:click="{() => toggleMenu('account')}">
-            <!-- TODO: Change fill on darkmode.-->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                <title>Account</title>
-                <desc>Account: access notifications, profile, NFT Studio for creators and site settings.</desc>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            </button>
-            {#if showAccountMenu}
-                <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
-                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" on:mouseleave="{() => toggleMenu('account')}" transition:slide>
-                    <div class="py-1" role="none">
-                    <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Dark Mode</a>
-                    <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Notifications</a>
-                    <a href="/profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Profile</a>
-                    <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Studio</a>
-                    <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="settings">Settings</a>
-                    </div>
-                </div>
+<div class="relative h-screen w-full flex flex-col overflow-x-hidden space-y-14 md:overflow-y-auto bg-gradient-to-b from-[#82FFF2] to-white z-0">
+    <div>
+        <div class="fixed flex flex-row h-12 w-screen items-center bg-black/40 backdrop-blur-sm md:hidden z-30">
+            <div class="w-2/3 px-2 bg-purple-700">
+                This Will be the search function.
+            </div>
+            <div class="w-1/6 bg-pink-400">
+                L/D M.
+            </div>
+            <div class="relative w-1/6 ml-auto mr-0">
+                <button type="button" class="px-2 float-right" on:click={() => toggleMenu('mobile')}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8">
+                        <title>Mobile Device Menu</title>
+                        <desc>View application options, like account, wallet, Search NFTs, etc...</desc>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+            {#if showMobileMenu}
+                <ul class="absolute grid grid-cols-2 w-full min-h-60 top-12 right-0 rounded-bl-2xl rounded-br-xl pt-1 pb-1 text-white bg-black/40 backdrop-blur-lg z-40"  transition:slide={{ delay: 250, duration: 250, easing: linear }}>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">{$nftMarketPlace}</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Launch Pad</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Explore</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Activity</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">DAO</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Raffle</li>
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Account</li> <!-- TODO: Menu within a menu -->
+                    <li class="p-2 hover:font-bold hover:bg-mint-edge hover:text-white">Wallet</li>
+                </ul>
             {/if}
         </div>
-        <!-- make account & wallet a button-->
-        <div id="wallet" class="relative inline-block text-left grow">
-            <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="wallet-menu-button" aria-expanded="true" aria-haspopup="true">
-            <!-- TODO: Add dropdown for wallet integration, i.e. remove wallet, add mutiwallet support -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                <title>Wallet</title>
-                <desc>Wallet: Pair with your cryto wallets via Hashpack and Blade, multi wallet pairing coming soon...</desc>
-                <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
-            </svg>
-            </button>
-        </div> <!-- If adjust this param, change menu right param -->
+        <div class="hidden md:flex w-full items-center md:px-6 md:py-2">
+            <div class="flex flex-row w-full h-11 justify-between text-sm px-6 place-items-center text-center max-w-7xl m-auto">
+            <div id="{$nftMarketPlace}" class="grow z-0">
+                <a href="/">{$nftMarketPlace}</a>
+            </div>
+            <div id="search" class="grow-2 mx-auto my-auto">
+                <!-- TODO: Provide drop down with options of filtered NFTs / Projects-->
+                <input class="border-none w-full bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
+                    type="search" placeholder="Search items, collections & accounts">
+            </div>
+            <div id="launchPad" class="grow">Launch Pad</div>
+            <div id="explore" class="grow">Explore</div>
+            <div id="activity" class="grow">Activity</div>
+            <div id="dao" class="grow">DAO</div>
+            <div id="raffle" class="grow">Raffle</div> 
+            <!-- TODO: Add hover effects -->
+            <div id="account" class="relative inline-block text-left grow">
+                <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="account-menu-button" aria-expanded="true" aria-haspopup="true" on:click="{() => toggleMenu('account')}">
+                <!-- TODO: Change fill on darkmode.-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                    <title>Account</title>
+                    <desc>Account: access notifications, profile, NFT Studio for creators and site settings.</desc>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                </button>
+                {#if showAccountMenu}
+                    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" on:mouseleave="{() => toggleMenu('account')}" transition:slide>
+                        <div class="py-1" role="none">
+                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Dark Mode</a>
+                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Notifications</a>
+                        <a href="/profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Profile</a>
+                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Studio</a>
+                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="settings">Settings</a>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+            <!-- make account & wallet a button-->
+            <div id="wallet" class="relative inline-block text-left grow">
+                <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="wallet-menu-button" aria-expanded="true" aria-haspopup="true">
+                <!-- TODO: Add dropdown for wallet integration, i.e. remove wallet, add mutiwallet support -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
+                    <title>Wallet</title>
+                    <desc>Wallet: Pair with your cryto wallets via Hashpack and Blade, multi wallet pairing coming soon...</desc>
+                    <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
+                </svg>
+                </button>
+            </div> <!-- If adjust this param, change menu right param -->
+            </div>
         </div>
     </div>
     <!-- TODO: Add image for product name. -->
-    <div class="md:hidden flex items-center">
-        <button type="button" class="absolute top-0 right-0" on:click={() => toggleMenu('mobile')}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <title>Mobile Device Menu</title>
-            <desc>View application options, like account, wallet, Search NFTs, etc...</desc>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-        </button>
-        {#if showMobileMenu}
-        <ul class="flex flex-col items-center justify-between min-h-60">
-            <li>{$nftMarketPlace}</li>
-            <li>Search</li><!-- mobile friendly search page -->
-            <li>Launch Pad</li>
-            <li>Explore</li>
-            <li>Activity</li>
-            <li>DAO</li>
-            <li>Raffle</li>
-            <li>Account</li> <!-- TODO: Menu within a menu -->
-            <li>Wallet</li>
-        </ul>
-        {/if}
-    </div>
+
     <div class="flex-grow">
         <slot />
     </div>
