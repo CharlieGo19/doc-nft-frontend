@@ -31,7 +31,7 @@
 <!-- TODO: Change h-screen to h-full when content added -->
 <div class="relative h-screen w-full flex flex-col overflow-x-hidden space-y-14 md:overflow-y-auto bg-gradient-to-b from-[#82FFF2] to-white z-0">
     <div>
-        <div class="w-full flex flex-col fixed z-50 bg-white/60 backdrop-blur-lg">
+        <div class="w-full flex flex-col fixed z-50 bg-white/60 backdrop-blur-lg md:hidden">
             <div class="flex flex-row">
                 <div class="w-2/3 px-2">
                     This Will be the search function.
