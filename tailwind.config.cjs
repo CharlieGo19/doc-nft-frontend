@@ -5,6 +5,7 @@ const config = {
     extend: {
       colors: {
         'light-mode-mint': '#A0EFE9',
+        'light-mint': '#82FFF2',
         'mint-edge': '#33B3A6',
       },
       flexGrow: {

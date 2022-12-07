@@ -397,3 +397,53 @@ export const homepagePopularCollections: PopularCollection[] = [
         size: 4206
     },
 ]
+
+export const SearchDummyData = [
+    {
+        value: 'Doctor Satoshi',
+        type: 'user',
+    },
+    {
+        value: 'SpaceBar',
+        type: 'user',
+    },
+    {
+        value: 'Uriah',
+        type: 'user',
+    },
+    {
+        value: 'CharlieGo_',
+        type: 'user',
+    },
+    {
+        value: 'Don Hector',
+        type: 'user',
+    },
+    {
+        value: 'Wen Moon',
+        author: 'Uriah',
+        type: 'collection',
+    },
+    {
+        value: 'Space',
+        author: 'SpaceBar',
+        type: 'collection',
+    },
+    {
+        value: 'Satoshi',
+        author: 'Doctor Satoshi',
+        type: 'collection',
+    },
+    {
+        value: '0.0.12345',
+        type: 'token_id',
+    },
+    {
+        value: '0.0.12346',
+        type: 'token_id',
+    },
+    {
+        value: '0.0.12347',
+        type: 'token_id',
+    },
+]
