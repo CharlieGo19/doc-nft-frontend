@@ -1,0 +1,41 @@
+<script lang="ts">
+    import { accountBal, accountId, isWalletPaired, pairedWallet } from "src/stores/wallet";
+    import { startPairing } from "src/lib/wallet-pairing/common";
+    import { pairWalletOverlay } from "src/stores/overlays";
+    import { nftMarketPlace } from "src/stores";
+    import { BLADE_WALLET, HASHPACK_WALLET } from "src/stores/constants";
+    import { fade } from "svelte/transition";
+
+    let pairHashPackOverlay = false;
+
+    function toggleHashPackOverlay() {
+        pairHashPackOverlay = !pairHashPackOverlay;
+    }
+</script>
+
+<div class="w-screen h-screen fixed flex flex-col top-[-56px] right-0 items-center bg-black/80 backdrop-blur-lg z-40" in:fade={{duration: 250}} out:fade>
+    <button class="absolute top-7 right-4" on:click={() => {pairWalletOverlay.set(false)}}> 
+        <div class="relative flex items-center justify-center">
+            <span class="relative flex h-1 w-[27px] left-[1.7rem] bg-light-mint rounded-md -rotate-45"></span>
+            <span class="relative flex h-1 w-[27px] bg-light-mint rounded-md rotate-45"></span>
+        </div>
+    </button>
+
+                    <!--  TODO: Bug on mobile - pressHP - then blade : error with error -->
+    {#if !$isWalletPaired}
+        <div class="flex my-auto space-x-20">
+            <button on:click={() => {startPairing(BLADE_WALLET)}}>
+                <img src="/wallets/blade-clear.png" alt="Click to connect via Blade Wallet." class="h-24 w-24 p-1 border rounded-xl border-white shadow-inner shadow-white hover:bg-black bg-black/10"/>
+            </button>
+            <button on:click={() => {isWalletPaired.set(false); startPairing(HASHPACK_WALLET);}}>
+                <img src="/wallets/hashpack-clear.svg" alt="Click to connect via HashPack." class="h-24 w-24 border p-1 rounded-xl border-[#7A7AB8] shadow-inner shadow-[#7A7AB8] hover:bg-black bg-black/10" />
+            </button>
+        </div>
+    {:else}
+        <div class="mt-48 text-white text-2xl"></div>
+        <div class="flex flex-col p-2 mt-28">
+            <span> Account ID:</span>
+            <span> HBar Balance:</span>
+        </div>
+    {/if}
+</div>

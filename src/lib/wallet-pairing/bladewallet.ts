@@ -1,6 +1,6 @@
 import { BladeSigner, HederaNetwork } from "@bladelabs/blade-web3.js";
-import { BLADE_WALLET, NFT_MARKET_PLACE, WALLET_ALREADY_PAIRED } from "../../stores/constants";
-import { isWalletPaired, pairedWallet, walletObj } from "../../stores/wallet";
+import { BLADE_WALLET, NFT_MARKET_PLACE, WALLET_ALREADY_PAIRED } from "src/stores/constants";
+import { isWalletPaired, pairedWallet, walletObj } from "src/stores/wallet";
 import { checkPairedWallet, setAccountInfo } from "./common";
 
 let bs: BladeSigner | undefined;

@@ -1,6 +1,6 @@
 <script lang="ts">
     // @ts-ignore
-    import type { NFTcard } from "../stores";
+    import type { NFTcard } from "src/stores";
     import { scrollLeft, scrollRight } from "./common/functions";
 
     // TODO: Add more locale for number formatting.

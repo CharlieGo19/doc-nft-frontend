@@ -1,4 +1,3 @@
-import TopCollections from "$lib/topCollectionsCarousel.svelte";
 import { type Readable, readable } from "svelte/store";
 
 export type NFTcard = {

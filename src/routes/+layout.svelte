@@ -1,14 +1,14 @@
 <script lang="ts">
-    import "../app.postcss";
-    import { nftMarketPlace, nftMarketPlaceLogo, SearchDummyData } from "../stores";
+    import "src/app.postcss";
+    import { nftMarketPlace, nftMarketPlaceLogo, SearchDummyData } from "src/stores";
     import { slide } from "svelte/transition";
     import { linear } from "svelte/easing";
-    import WalletOverlay from "../components/overlays/walletOverlay.svelte";
+    import WalletOverlay from "$lib/components/overlays/wallets/walletOverlay.svelte";
     import { onMount } from "svelte";
     import { setAccountInfo } from "$lib/wallet-pairing/common";
-    import { accountId, isWalletPaired } from "../stores/wallet";
-    import { pairWalletOverlay } from "../stores/overlays";
-    import Toasts from "../components/toast/toasts.svelte";
+    import { accountId, isWalletPaired } from "src/stores/wallet";
+    import { pairWalletOverlay } from "src/stores/overlays";
+    import Toasts from "$lib/components/toast/toasts.svelte";
 
     onMount(async() => {
         await setAccountInfo();

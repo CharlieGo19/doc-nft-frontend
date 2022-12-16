@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { nftMarketPlace, homepageLaunchPadFeed, homepagePopularCollections, homepageTopCollectionFeed, mostFireNfts, type MostFireCard, type NFTcard, type PopularCollection, type TopCollectionsCell } from "../stores";
+    import { nftMarketPlace, homepageLaunchPadFeed, homepagePopularCollections, homepageTopCollectionFeed, mostFireNfts } from "src/stores"
+    import type { MostFireCard, NFTcard, PopularCollection, TopCollectionsCell } from "src/stores";
     import Carousel from "$lib/carousel.svelte";
     import FireCarousel from "$lib/fireCarousel.svelte";
     import PopularCollectionsCarousel from "$lib/popularCollectionsCarousel.svelte";

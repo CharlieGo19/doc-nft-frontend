@@ -1,4 +1,4 @@
-import { toasts } from "../../stores/toasts";
+import { toasts } from "src/stores/toasts";
 
 export type Toast = {
     id?: number;

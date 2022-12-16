@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TOAST_LEVEL_ERROR, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_WARNING } from "../../stores/constants";
+  import { TOAST_LEVEL_ERROR, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_WARNING } from "src/stores/constants";
   import { fade, fly } from "svelte/transition";
 
 
