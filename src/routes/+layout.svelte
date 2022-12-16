@@ -3,8 +3,16 @@
     import { nftMarketPlace, nftMarketPlaceLogo, SearchDummyData } from "../stores";
     import { slide } from "svelte/transition";
     import { linear } from "svelte/easing";
+    import WalletOverlay from "../components/overlays/walletOverlay.svelte";
+    import { onMount } from "svelte";
+    import { setAccountInfo } from "$lib/wallet-pairing/common";
+    import { accountId, isWalletPaired } from "../stores/wallet";
+    import { pairWalletOverlay } from "../stores/overlays";
+    import Toasts from "../components/toast/toasts.svelte";
 
-    export const prerender = true;
+    onMount(async() => {
+        await setAccountInfo();
+    });
 
     let showAccountMenu: boolean = false;
     let showMobileMenu: boolean = false;
@@ -27,6 +35,22 @@
             showAccountMenu = false;
         }
     }
+
+    $: {
+        if (searchValue.length > 0) {
+            searchResults.users = SearchDummyData.filter(x => x.type === "user" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
+            searchResults.collections = SearchDummyData.filter(x => x.type === "collection" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
+            searchResults.tokens = SearchDummyData.filter(x => x.type === "token_id" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
+        } else {
+            searchResults.users = [];
+            searchResults.collections = [];
+            searchResults.tokens = [];
+        }
+
+        showUserResults = (searchResults.users.length > 0) ? true : false;
+        showCollectionResults = (searchResults.collections.length > 0) ? true : false;
+        showNftResults = (searchResults.tokens.length > 0) ? true : false;
+    };
 
     const toggleMenu = (menu: string): any => {
         if (menu === "account") {
@@ -71,31 +95,27 @@
         users: Array<any>,
         tokens: Array<any>,
         collections: Array<any>
-    }
+    };
 
-    function BasicSearch(e: any) {
-        if (searchValue.length > 0) {
-            searchResults.users = SearchDummyData.filter(x => x.type === "user" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
-            searchResults.collections = SearchDummyData.filter(x => x.type === "collection" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
-            searchResults.tokens = SearchDummyData.filter(x => x.type === "token_id" && x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()));
-        } else {
-            searchResults.users = [];
-            searchResults.collections = [];
-            searchResults.tokens = [];
-        }
+    let iwp: boolean;
+    let accId: string | null;
 
-        showUserResults = (searchResults.users.length > 0) ? true : false;
-        showCollectionResults = (searchResults.collections.length > 0) ? true : false;
-        showNftResults = (searchResults.tokens.length > 0) ? true : false;
-    }
-    
+    isWalletPaired.subscribe(val => {
+        iwp = val;
+    });
+
+    accountId.subscribe(val => {
+        accId = val;
+    });
+
 </script>
 
 <svelte:window on:keydown={closeMenu} />
 <!-- TODO: Change h-screen to h-full when content added -->
 <div class="relative h-screen w-full flex flex-col overflow-x-hidden space-y-14 md:overflow-y-auto bg-gradient-to-b from-light-mint to-white z-0">
     <div>
-        <div class="w-full flex flex-col fixed bg-black/60 backdrop-blur-lg z-50 md:hidden">
+        <Toasts />
+        <div class="w-full flex flex-col fixed bg-black/60 backdrop-blur-lg z-40 md:hidden">
             <div class="flex flex-row h-14">
                 <div class="relative w-2/3 px-4 my-auto">
                     <svg width="121" height="36" viewBox="0 0 121 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,14 +173,20 @@
                         <span class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">Explore</span>
                         <span class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">Activity</span>
                         <span class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">DAO</span>
-                        <span class="p-2 hover:font-bold hover:bg-mint-edge hover:text-black">Raffle</span>
-                        <span class="p-2 hover:font-bold hover:bg-mint-edge hover:text-black">Account</span> <!-- TODO: Menu within a menu -->
-                        <span class="p-2 hover:font-bold hover:bg-mint-edge hover:text-black">Wallet</span>
+                        <span class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">Raffle</span>
+                        <span class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">Account</span>
+                        <button class="p-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black text-left {iwp === true ? 'font-bold':''}" on:click={() => { pairWalletOverlay.set(true); toggleMenu('mobile')}}>
+                            {#if iwp} 
+                                {accId}
+                            {:else}
+                                Pair Wallet
+                            {/if}
+                        </button>
                     </div>
                 {/if} 
                 {#if showMobileSearch}
                     <div class="flex flex-col w-full pt-0 pb-2 px-4 z-40" transition:slide={{ duration: 300, easing: linear }}> 
-                        <input type="search" class="w-full mx-auto px-2 py-1 font-Poppins text-sm" placeholder="Search items, collections, creators and collectors" bind:value={searchValue} on:keyup={BasicSearch}>
+                        <input type="search" class="w-full mx-auto px-2 py-1 font-Poppins text-sm" placeholder="Search items, collections, creators and collectors" bind:value={searchValue}>
                         {#if showUserResults}
                             <div class="w-full flex flex-col py-2 text-white">
                                 <span class="p-1"></span>
@@ -178,7 +204,7 @@
                                 <span class="p-1"></span>
                                 {#each searchResults.collections as collection}
                                     <!-- TODO: Convert these to links. -->
-                                    <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{collection.value}</span>
+                                    <a href="/collection/{collection.value}" class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black" on:click={() => { toggleMenu('mobileSearch')}}>{collection.value}</a>
                                 {/each}
                             </div>
                         {/if}
@@ -201,17 +227,10 @@
             <div id="{$nftMarketPlace}" class="grow z-0">
                 <a href="/">{$nftMarketPlace}</a>
             </div>
-
-
-
-
-
-
-
             <div id="search" class="grow-2">
                 <!-- TODO: Provide drop down with options of filtered NFTs / Projects-->
                 <input class="border-none w-full bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
-                    type="search" placeholder="Search items, collections & accounts" on:focus="{() => toggleMenu('desktopSearch')}" bind:value={searchValue} on:keyup={BasicSearch} on:keydown={() => { showDesktopSearch = true;}}>
+                    type="search" placeholder="Search items, collections & accounts" on:focus="{() => toggleMenu('desktopSearch')}" bind:value={searchValue} on:keydown={() => { showDesktopSearch = true;}}>
                     {#if showDesktopSearch}
                     <div class="absolute w-4/5 max-w-4xl inset-x-auto z-10 mt-2 rounded-md bg-black/60 text-white backdrop-blur-lg" tabindex="-1" on:mouseleave="{() => toggleMenu('desktopSearch')}" transition:slide>
                         {#if showUserResults}
@@ -253,12 +272,6 @@
                     </div>
                 {/if}
             </div>
-
-
-
-
-
-
             <div id="launchPad" class="grow">Launch Pad</div>
             <div id="explore" class="grow">Explore</div>
             <div id="activity" class="grow">Activity</div>
@@ -301,8 +314,11 @@
             </div>
         </div>
     </div>
+    {#if $pairWalletOverlay}
+        <WalletOverlay />
+    {/if}
     <div class="flex-grow">
-        <slot />
+        <!--<slot />-->
     </div>
     <div class="text-stone-700 md:w-1/4 mx-auto">
         <div class="w-full">

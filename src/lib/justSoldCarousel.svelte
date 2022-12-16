@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { MostFireCard } from "src/stores";
-    import { scrollLeft, scrollRight } from "./utils/functions";
+    import { scrollLeft, scrollRight } from "./common/functions";
 
     let carousel: HTMLUListElement; 
     export let nftsSold: MostFireCard[];

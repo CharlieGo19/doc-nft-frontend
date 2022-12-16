@@ -1,7 +1,7 @@
 <script lang="ts">
     // @ts-ignore
     import type { NFTcard } from "../stores";
-    import { scrollLeft, scrollRight } from "./utils/functions";
+    import { scrollLeft, scrollRight } from "./common/functions";
 
     // TODO: Add more locale for number formatting.
     const fmtr = new Intl.NumberFormat('en-GB');

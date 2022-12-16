@@ -1,6 +1,6 @@
 <script type="ts">
     import type { PopularCollection } from 'src/stores';
-    import { scrollLeft, scrollRight } from "./utils/functions";
+    import { scrollLeft, scrollRight } from "./common/functions";
 
     const fmtr = new Intl.NumberFormat('en-GB');
     export let popularCollections: PopularCollection[];

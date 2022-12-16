@@ -18,6 +18,9 @@ const config = {
         'material-symbols-outlined': ['"Material Symbols Outlined"'],
         'orbitron': ['"Orbitron"'],
         'Poppins': ['"Poppins"'],
+      },
+      boxShadow: {
+        'toast': '0 -4px 22px 1px',
       }
     },
   },
