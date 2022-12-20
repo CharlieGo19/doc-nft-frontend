@@ -28,7 +28,7 @@
 
 </script>
 <!-- TODO: Add extra safeguards here incase of error to prevent the display of pairing string if paired. -->
-<div class="w-full flex flex-col translate-y-1/4 text-white">
+<div class="w-full md:max-w-md flex flex-col translate-y-1/4 md:mt-auto md:mb-auto md:-translate-y-1/4 text-white">
     <span class="w-1/2 mx-auto py-1 text-center font-extrabold">Pair Wallet</span>
     <button class="flex flex-row mx-auto py-1 justify-center border-4 border-[#525298] w-1/2 rounded-xl font-bold text-white hover:bg-black/50" on:click={pairWithExtension}>
         <img src="/wallets/hashpack-clear.svg" alt="HashPack" class="w-6 h-6">

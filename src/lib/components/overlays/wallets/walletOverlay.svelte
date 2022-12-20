@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { accountBal, accountId, isWalletPaired, pairedWallet } from "src/stores/wallet";
+    import { accountBal, accountId, isWalletPaired} from "src/stores/wallet";
     import { initPairedWallet, startPairing, unpairWallet } from "src/lib/wallet-pairing/common";
     import { pairWalletOverlay, pairHashPackOverlay } from "src/stores/overlays";
-    import { nftMarketPlace } from "src/stores";
     import { BLADE_WALLET, HASHPACK_WALLET } from "src/stores/constants";
     import { fade } from "svelte/transition";
     import HashpackOverlay from "./hashpackOverlay.svelte";
@@ -14,14 +13,15 @@
 </script>
 
 <div class="w-screen h-screen fixed flex flex-col top-[-56px] right-0 items-center bg-black/80 backdrop-blur-lg z-40" in:fade={{duration: 250}} out:fade>
-    <button class="absolute top-7 right-4" on:click={() => {$pairWalletOverlay = false; $pairHashPackOverlay = false;}}> 
-        <div class="relative flex items-center justify-center">
-            <span class="relative flex h-1 w-[27px] left-[1.7rem] bg-light-mint rounded-md -rotate-45"></span>
-            <span class="relative flex h-1 w-[27px] bg-light-mint rounded-md rotate-45"></span>
-        </div>
-    </button>
+    <div class="md:absolute md:w-full md:max-w-7xl">
+        <button class="absolute top-7 right-4 md:top-7 md:right-[60px]" on:click={() => {$pairWalletOverlay = false; $pairHashPackOverlay = false;}}> 
+            <div class="relative flex items-center justify-center">
+                <span class="relative flex h-1 w-[27px] left-[1.7rem] bg-light-mint rounded-md -rotate-45"></span>
+                <span class="relative flex h-1 w-[27px] bg-light-mint rounded-md rotate-45"></span>
+            </div>
+        </button>
+    </div>
 
-    <!--  TODO: Bug on mobile - pressHP - then blade : error with error -->
     {#if !$isWalletPaired && !$pairHashPackOverlay}
         <div class="flex my-auto space-x-20">
             <button on:click={() => {startPairing(BLADE_WALLET)}}>

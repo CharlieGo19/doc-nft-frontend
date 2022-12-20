@@ -302,7 +302,7 @@
             </div>
             <!-- make account & wallet a button-->
             <div id="wallet" class="relative inline-block text-left grow">
-                <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="wallet-menu-button" aria-expanded="true" aria-haspopup="true">
+                <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="wallet-menu-button" aria-expanded="true" aria-haspopup="true" on:click={() => pairWalletOverlay.set(true)}>
                 <!-- TODO: Add dropdown for wallet integration, i.e. remove wallet, add mutiwallet support -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
                     <title>Wallet</title>
