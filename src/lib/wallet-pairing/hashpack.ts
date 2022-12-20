@@ -21,6 +21,11 @@ let aid: string | null;
 let ht: string;
 let hp: HashConnectProvider | undefined;
 
+let ps: string | null; 
+hashpackPairingString.subscribe(val => {
+    ps = val;
+});
+
 isWalletPaired.subscribe(val => {
     iwp = val;
 });
@@ -46,26 +51,30 @@ hashConnect.foundExtensionEvent.once((fee: HashConnectTypes.WalletMetadata) => {
     hashPackExtensionData.set(fee);
 });
 
-hashConnect.pairingEvent.on(() => {
+hashConnect.pairingEvent.on(async() => {
     isWalletPaired.set(true);
     pairedWallet.set(HASHPACK_WALLET);
+    await setAccountInfo();
+    
     let t: Toast = { 
         messageLevel: TOAST_LEVEL_SUCCESS,
         messageContent: HASHPACK_PAIR_SUCCESS
     };
     manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
 });
-hashConnect.acknowledgeMessageEvent.on(e => {
-    console.log("Ack")
-    console.log(e);
 
+hashConnect.acknowledgeMessageEvent.on(e => {
+    // TODO: Something?
 });
 
 hashConnect.connectionStatusChangeEvent.on(e => {
-    console.log("Conn: ", e)
+    // TODO: Poll connection status.
 });
 
-// Listen to other events. figure out which is fired on disconnect...
+/**
+ * initHashPack will set store values to enable basic functionality with HashPack
+ * If it's an existing pairing it will also set account balance & Id.
+ */
 export async function initHashpack(): Promise<void> {
     let initData = await hashConnect.init(metaData, "testnet", true); // TODO: Abstract network to const
 
@@ -73,14 +82,7 @@ export async function initHashpack(): Promise<void> {
         if (!iwp) {
             isWalletPaired.set(true);
         }
-        accountId.set(initData.savedPairings[0].accountIds[0]);
-        hashPackTopic.set(initData.topic);
-        hashPackProvider.set(hashConnect.getProvider("testnet", initData.topic, aid as string)); // TODO: Abstract network to const.
-        
-        const accBal = (await (hp as HashConnectProvider).getAccountBalance(aid as string)).hbars.toBigNumber();
-        const fmtr: Intl.NumberFormat = new Intl.NumberFormat('en-gb'); // TODO: Refactor
-        // @ts-ignore
-        accountBal.set(fmtr.format(accBal));
+        await setAccountInfo();
         // TODO: Create some logic to ensure only 1 account is paired for now.
         // MultiAccount support will come.
     }
@@ -129,5 +131,15 @@ export async function unpairHashPackWallet(): Promise<void> {
         manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
         return;
     }
+}
 
+async function setAccountInfo(): Promise<void> {
+    accountId.set(hashConnect.hcData.pairingData[0].accountIds[0]);
+    hashPackTopic.set(hashConnect.hcData.topic);
+    hashPackProvider.set(hashConnect.getProvider("testnet", hashConnect.hcData.topic, aid as string)); // TODO: Abstract network to const.
+    
+    const accBal = (await (hp as HashConnectProvider).getAccountBalance(aid as string)).hbars.toBigNumber();
+    const fmtr: Intl.NumberFormat = new Intl.NumberFormat('en-gb'); // TODO: Refactor
+    // @ts-ignore
+    accountBal.set(fmtr.format(accBal));
 }

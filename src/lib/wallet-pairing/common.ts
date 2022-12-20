@@ -46,7 +46,7 @@ export async function startPairing(wallet: string): Promise<void> {
             break;
         case BLADE_WALLET:
             try {
-                await initBlade();
+                await initBlade(); // TODO: Move toasts in to Blade.
                 let t: Toast = {
                     messageLevel: TOAST_LEVEL_SUCCESS,
                     messageContent: BLADE_WALLET_PAIR_SUCCESS
