@@ -1,11 +1,16 @@
 <script lang="ts">
     import { accountBal, accountId, isWalletPaired, pairedWallet } from "src/stores/wallet";
-    import { startPairing } from "src/lib/wallet-pairing/common";
+    import { initPairedWallet, startPairing, unpairWallet } from "src/lib/wallet-pairing/common";
     import { pairWalletOverlay } from "src/stores/overlays";
     import { nftMarketPlace } from "src/stores";
     import { BLADE_WALLET, HASHPACK_WALLET } from "src/stores/constants";
     import { fade } from "svelte/transition";
+    import HashpackOverlay from "./hashpackOverlay.svelte";
+    import { onMount } from "svelte";
 
+    onMount(async() => {
+        await initPairedWallet();
+    });
     let pairHashPackOverlay = false;
 
     function toggleHashPackOverlay() {
@@ -21,21 +26,24 @@
         </div>
     </button>
 
-                    <!--  TODO: Bug on mobile - pressHP - then blade : error with error -->
-    {#if !$isWalletPaired}
+    <!--  TODO: Bug on mobile - pressHP - then blade : error with error -->
+    {#if !$isWalletPaired && !pairHashPackOverlay}
         <div class="flex my-auto space-x-20">
             <button on:click={() => {startPairing(BLADE_WALLET)}}>
                 <img src="/wallets/blade-clear.png" alt="Click to connect via Blade Wallet." class="h-24 w-24 p-1 border rounded-xl border-white shadow-inner shadow-white hover:bg-black bg-black/10"/>
             </button>
-            <button on:click={() => {isWalletPaired.set(false); startPairing(HASHPACK_WALLET);}}>
+            <button on:click={toggleHashPackOverlay}>
                 <img src="/wallets/hashpack-clear.svg" alt="Click to connect via HashPack." class="h-24 w-24 border p-1 rounded-xl border-[#7A7AB8] shadow-inner shadow-[#7A7AB8] hover:bg-black bg-black/10" />
             </button>
         </div>
+    {:else if !$isWalletPaired && pairHashPackOverlay}
+        <HashpackOverlay />
     {:else}
         <div class="mt-48 text-white text-2xl"></div>
         <div class="flex flex-col p-2 mt-28">
-            <span> Account ID:</span>
-            <span> HBar Balance:</span>
+            <span> Account ID: {$accountId}</span>
+            <span> HBar Balance: {$accountBal}</span>
+            <button class="bg-purple-700 text-white font-bold" on:click={unpairWallet}>Unpair</button>
         </div>
     {/if}
 </div>

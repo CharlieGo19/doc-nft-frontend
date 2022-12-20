@@ -1,11 +1,14 @@
 import { type Toast, manageToast } from "$lib/toast/toast";
-import { BLADE_WALLET, BLADE_WALLET_EXTENSION_NOT_FOUND, BLADE_WALLET_EXTENSION_NOT_FOUND_MESSAGE, ERROR_WITH_ERROR, HASHPACK_WALLET, 
-        TOAST_LEVEL_ERROR, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_WARNING } from "src/stores/constants";
-import { accountBal, accountId, isWalletPaired, pairedWallet } from "src/stores/wallet";
+import { BLADE_WALLET, BLADE_WALLET_EXTENSION_NOT_FOUND, BLADE_WALLET_EXTENSION_NOT_FOUND_MESSAGE, BLADE_WALLET_PAIR_SUCCESS, ERROR_WITH_ERROR, HASHPACK_WALLET, 
+        INVALID_WALLET_SELECTION, 
+        TOAST_LEVEL_ERROR, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_WARNING, TOAST_TIME_TO_LIVE_MEDIUM, TOAST_TIME_TO_LIVE_SHORT } from "src/stores/constants";
+import { accountBal, accountId, hashpackPairingString, isWalletPaired, pairedWallet } from "src/stores/wallet";
 import { getAccountId, getAccountBalance, initBlade } from "./bladewallet";
+import { initHashpack, unpairHashPackWallet } from "./hashpack";
 
 let iwp: boolean;
 let pw: string | null;
+let hps: string | null;
 
 isWalletPaired.subscribe(val => {
     iwp = val;
@@ -15,6 +18,20 @@ pairedWallet.subscribe(val => {
     pw = val;
 });
 
+hashpackPairingString.subscribe(val => {
+    hps = val;
+});
+
+export async function initPairedWallet() {
+    if (iwp) {
+        switch(pw) {
+            case HASHPACK_WALLET:
+                await initHashpack();
+                break;
+        }
+        //TODO: Blade
+    }
+}
 /**
  * 
  * @param wallet wallet to be paired.
@@ -25,20 +42,16 @@ pairedWallet.subscribe(val => {
 export async function startPairing(wallet: string): Promise<void> {
     switch(wallet) {
         case HASHPACK_WALLET:
-            let t: Toast = {
-                messageLevel: TOAST_LEVEL_SUCCESS,
-                messageContent: "Paired with Hashpack."
-            }
-            manageToast(t);
+            await initHashpack();
             break;
         case BLADE_WALLET:
             try {
                 await initBlade();
                 let t: Toast = {
                     messageLevel: TOAST_LEVEL_SUCCESS,
-                    messageContent: "Successfully paired with Blade Wallet."
+                    messageContent: BLADE_WALLET_PAIR_SUCCESS
                 }
-                manageToast(t);
+                manageToast(t, TOAST_TIME_TO_LIVE_SHORT);
             }catch(e) {
                 if (e instanceof Error) {
                     let t: Toast = {
@@ -51,9 +64,25 @@ export async function startPairing(wallet: string): Promise<void> {
                                 messageContent: BLADE_WALLET_EXTENSION_NOT_FOUND_MESSAGE,
                             };
                         }
-                    manageToast(t);
+                    manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
                 }
             }
+            break;
+        default: 
+            let t: Toast = {
+                messageLevel: TOAST_LEVEL_ERROR,
+                messageContent: INVALID_WALLET_SELECTION
+            };
+            manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
+    }
+}
+
+export async function unpairWallet(): Promise<void> {
+    switch(pw) {
+        case HASHPACK_WALLET:
+            await unpairHashPackWallet();
+            break;
+        case BLADE_WALLET:
             break;
     }
 }

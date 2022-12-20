@@ -1,9 +1,10 @@
 import { BladeSigner, HederaNetwork } from "@bladelabs/blade-web3.js";
+import type { HashConnect } from "hashconnect";
 import { BLADE_WALLET, NFT_MARKET_PLACE, WALLET_ALREADY_PAIRED } from "src/stores/constants";
 import { isWalletPaired, pairedWallet, walletObj } from "src/stores/wallet";
 import { checkPairedWallet, setAccountInfo } from "./common";
 
-let bs: BladeSigner | undefined;
+let bs: HashConnect | BladeSigner | undefined;
 
 walletObj.subscribe(val => {
     bs = val;
@@ -44,7 +45,7 @@ export function getAccountId(): string {
 
 export async function getAccountBalance(): Promise<string> {
     const fmtr: Intl.NumberFormat = new Intl.NumberFormat('en-gb');
-    const bal: any = await (await (bs as BladeSigner).getAccountBalance()).hbars.toBigNumber();
+    const bal: any = await (await (bs as BladeSigner).getAccountBalance()).hbars.toBigNumber(); // TODO: Refactor
     return(fmtr.format(bal));
 }
 

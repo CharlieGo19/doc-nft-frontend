@@ -15,6 +15,7 @@
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-static": "^1.0.0-next.44",
     "@sveltejs/kit": "next",
+    "@types/qrcode": "^1.5.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "autoprefixer": "^10.4.7",
@@ -36,6 +37,8 @@
   "type": "module",
   "dependencies": {
     "@bladelabs/blade-web3.js": "^0.9.13",
-    "@hashgraph/sdk": "^2.19.0"
+    "@hashgraph/sdk": "^2.19.0",
+    "hashconnect": "^0.2.3",
+    "qrcode": "^1.5.1"
   }
 }

@@ -1,6 +1,8 @@
 import { writable, type Writable } from "svelte/store";
 import { browser } from "$app/environment";
 import type { BladeSigner } from "@bladelabs/blade-web3.js";
+import type { HashConnect, HashConnectTypes } from "hashconnect";
+import type { HashConnectProvider } from "hashconnect/dist/esm/provider/provider";
 
 // Values to commit to localStorage.
 export const isWalletPaired: Writable<boolean> = writable(retrieveFromLocal("isWalletPaired", false, true));
@@ -48,7 +50,13 @@ function retrieveFromLocal(key: string, def: any, isObj: boolean): any {
 }
 
 // Values not to be commited to localStorage.
-export const walletObj: Writable<BladeSigner | undefined> = writable(undefined);
+export const walletObj: Writable<HashConnect | BladeSigner | undefined> = writable(undefined);
 export const accountId: Writable<string | null> = writable(null);
-export const accountBal: Writable<string | null> = writable(null);
+export const accountBal: Writable<string> = writable("0");
+
+// TODO: Change if needed in localStorage
+export const hashpackPairingString: Writable<string | null> = writable(null);
+export const hashPackExtensionData: Writable<HashConnectTypes.WalletMetadata> = writable();
+export const hashPackTopic: Writable<string> = writable();
+export const hashPackProvider: Writable<HashConnectProvider> = writable();
 
