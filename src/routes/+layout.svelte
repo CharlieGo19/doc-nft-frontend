@@ -1,7 +1,7 @@
 <script lang="ts">
     import "src/app.postcss";
     import { nftMarketPlace, nftMarketPlaceLogo, SearchDummyData } from "src/stores";
-    import { slide } from "svelte/transition";
+    import { fade, slide } from "svelte/transition";
     import { linear } from "svelte/easing";
     import WalletOverlay from "$lib/components/overlays/wallets/walletOverlay.svelte";
     import { onMount } from "svelte";
@@ -111,7 +111,6 @@
 </script>
 
 <svelte:window on:keydown={closeMenu} />
-<!-- TODO: Change h-screen to h-full when content added -->
 <div class="relative h-screen w-full flex flex-col overflow-x-hidden space-y-14 md:overflow-y-auto bg-gradient-to-b from-light-mint to-white z-0">
     <div>
         <Toasts />
@@ -222,8 +221,9 @@
                 {/if}
             </div>
         </div>
-        <div class="hidden md:flex w-full items-center md:px-6 md:py-2">
-            <div class="flex flex-row w-full h-11 justify-between text-sm px-6 place-items-center text-center max-w-7xl m-auto">
+        <!-- <div class="hidden md:absolute md:flex md:w-full md:h-14 md:px-6 md:py-2 -z-10"></div> -->
+        <div class="hidden md:flex w-full items-center py-2 bg-black/60 backdrop-blur-lg">
+            <div class="flex flex-row w-full h-11 justify-between space-x-2 place-items-center text-center max-w-7xl m-auto font-medium text-sm text-white">
             <div id="{$nftMarketPlace}" class="grow z-0">
                 <a href="/">{$nftMarketPlace}</a>
             </div>
@@ -232,54 +232,54 @@
                 <input class="border-none w-full bg-white h-10 px-2 rounded-lg text-sm focus:outline-none"
                     type="search" placeholder="Search items, collections & accounts" on:focus="{() => toggleMenu('desktopSearch')}" bind:value={searchValue} on:keydown={() => { showDesktopSearch = true;}}>
                     {#if showDesktopSearch}
-                    <div class="absolute w-4/5 max-w-4xl inset-x-auto z-10 mt-2 rounded-md bg-black/60 text-white backdrop-blur-lg" tabindex="-1" on:mouseleave="{() => toggleMenu('desktopSearch')}" transition:slide>
-                        {#if showUserResults}
-                        <!-- TODO: Could extract these out in to components? -->
-                        <!-- TODO: Add more button to list full results / paginated. -->
-                            <div class="w-full flex flex-col p-2 text-white">
-                                <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">Creators and Users</span> <!-- px-2 pb-2 text-left text-lg font-bold -->
-                                <!-- <hr class="w-[98%] h-px mx-auto bg-white border-0" /> -->
-                                <div class="grid grid-cols-5 md:grid-cols-3 py-2">
-                                    {#each searchResults.users as user}
+                        <div class="absolute w-4/5 max-w-4xl inset-x-auto z-10 mt-[10px] rounded-md bg-black/60 text-white backdrop-blur-lg" tabindex="-1" on:mouseleave="{() => toggleMenu('desktopSearch')}">
+                            {#if showUserResults}
+                            <!-- TODO: Could extract these out in to components? -->
+                            <!-- TODO: Add more button to list full results / paginated. -->
+                                <div class="w-full flex flex-col p-2 text-white" transition:slide={{ duration: 200, easing: linear }}>
+                                    <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">Creators and Users</span>
+                                    <!-- <hr class="w-[98%] h-px mx-auto bg-white border-0" /> -->
+                                    <div class="grid grid-cols-5 md:grid-cols-3 py-2">
+                                        {#each searchResults.users as user}
+                                            <!-- TODO: Convert these to links. -->
+                                            <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{user.value}</span>
+                                        {/each}
+                                    </div>
+                                </div>
+                            {/if}
+                            {#if showCollectionResults}
+                                <div class="w-full flex flex-col px-2 text-white"  transition:slide={{ duration: 200, easing: linear }}>
+                                    <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">Collections</span>
+                                    <div class="grid grid-cols-5 md:grid-cols-3 py-2">
+                                        {#each searchResults.collections as collection}
                                         <!-- TODO: Convert these to links. -->
-                                        <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{user.value}</span>
-                                    {/each}
+                                            <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{collection.value}</span>
+                                        {/each}
+                                    </div>
                                 </div>
-                            </div>
-                        {/if}
-                        {#if showCollectionResults}
-                            <div class="w-full flex flex-col px-2 text-white">
-                                <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">Collections</span>
-                                <div class="grid grid-cols-5 md:grid-cols-3 py-2">
-                                    {#each searchResults.collections as collection}
-                                    <!-- TODO: Convert these to links. -->
-                                        <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{collection.value}</span>
-                                    {/each}
+                            {/if}
+                            {#if showNftResults}
+                                <div class="w-full flex flex-col p-2 text-white"  transition:slide={{ duration: 200, easing: linear }}>
+                                    <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">NFTs</span>
+                                    <div class="grid grid-cols-5 md:grid-cols-3 py-2">
+                                        {#each searchResults.tokens as nft}
+                                        <!-- TODO: Convert these to links. -->
+                                            <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{nft.value}</span>
+                                        {/each}
+                                    </div>
                                 </div>
-                            </div>
-                        {/if}
-                        {#if showNftResults}
-                            <div class="w-full flex flex-col p-2 text-white">
-                                <span class="w-full mx-auto px-2 rounded-md text-black font-semibold bg-light-mint">NFTs</span>
-                                <div class="grid grid-cols-5 md:grid-cols-3 py-2">
-                                    {#each searchResults.tokens as nft}
-                                    <!-- TODO: Convert these to links. -->
-                                        <span class="px-2 hover:rounded-md hover:font-bold hover:bg-light-mint hover:text-black">{nft.value}</span>
-                                    {/each}
-                                </div>
-                            </div>
-                        {/if}
-                    </div>
-                {/if}
+                            {/if}
+                        </div>
+                    {/if}
             </div>
-            <div id="launchPad" class="grow">Launch Pad</div>
-            <div id="explore" class="grow">Explore</div>
-            <div id="activity" class="grow">Activity</div>
-            <div id="dao" class="grow">DAO</div>
-            <div id="raffle" class="grow">Raffle</div> 
+            <div id="launchPad" class="grow flex h-full justify-center items-center hover:font-bold hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80">Launch Pad</div>
+            <div id="explore" class="grow flex h-full justify-center items-center hover:font-bold hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80">Marketplace</div>
+            <div id="activity" class="grow flex h-full justify-center items-center hover:font-bold hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80">Activity</div>
+            <div id="dao" class="grow flex h-full justify-center items-center hover:font-bold hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80">DAO</div>
+            <div id="raffle" class="grow flex h-full justify-center items-center hover:font-bold hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80">Raffle</div> 
             <!-- TODO: Add hover effects -->
-            <div id="account" class="relative inline-block text-left grow">
-                <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="account-menu-button" aria-expanded="true" aria-haspopup="true" on:click="{() => toggleMenu('account')}">
+            <div id="account" class="flex h-full justify-center items-center text-left grow hover:cursor-pointer rounded-md hover:text-black hover:bg-light-mint/80" on:click="{() => toggleMenu('account')}">
+                <button type="button" class="font-material-symbols-outlined text-4xl font-thin" id="account-menu-button" aria-expanded="true" aria-haspopup="true">
                 <!-- TODO: Change fill on darkmode.-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
                     <title>Account</title>
@@ -288,20 +288,21 @@
                 </svg>
                 </button>
                 {#if showAccountMenu}
-                    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
-                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" on:mouseleave="{() => toggleMenu('account')}" transition:slide>
-                        <div class="py-1" role="none">
-                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Dark Mode</a>
-                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Notifications</a>
-                        <a href="/profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Profile</a>
-                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Studio</a>
-                        <a href="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="settings">Settings</a>
+                    <!-- TODO: Fix bug, visually behind carousels. -->
+                    <div class="absolute mt-[254px] w-56 bg-black/60 backdrop-blur-lg rounded-b-md focus:outline-none text-center text-white"  on:mouseleave="{() => toggleMenu('account')}"
+                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" transition:slide={{ duration: 200, easing: linear }}>
+                        <div class="p-2" role="none">
+                        <a href="/" class="block px-4 py-2 rounded-md text-sm hover:bg-light-mint hover:text-black" role="menuitem" tabindex="-1" id="menu-item-0">Dark Mode</a>
+                        <a href="/" class="block px-4 py-2 rounded-md text-sm hover:bg-light-mint hover:text-black" role="menuitem" tabindex="-1" id="menu-item-0">Notifications</a>
+                        <a href="/profile" class="block px-4 py-2 rounded-md text-sm hover:bg-light-mint hover:text-black" role="menuitem" tabindex="-1" id="menu-item-1">Profile</a>
+                        <a href="/" class="block px-4 py-2 text-sm rounded-md hover:bg-light-mint hover:text-black" role="menuitem" tabindex="-1" id="menu-item-2">Studio</a>
+                        <a href="/" class="block px-4 py-2 text-sm rounded-md hover:bg-light-mint hover:text-black" role="menuitem" tabindex="-1" id="settings">Settings</a>
                         </div>
                     </div>
                 {/if}
             </div>
             <!-- make account & wallet a button-->
-            <div id="wallet" class="relative inline-block text-left grow">
+            <div id="wallet" class="flex h-full justify-center items-center text-left grow rounded-md hover:text-black hover:bg-light-mint/80">
                 <button type="button" class="inline-flex w-full justify-center align-middle font-material-symbols-outlined text-4xl font-thin" id="wallet-menu-button" aria-expanded="true" aria-haspopup="true" on:click={() => pairWalletOverlay.set(true)}>
                 <!-- TODO: Add dropdown for wallet integration, i.e. remove wallet, add mutiwallet support -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
@@ -318,7 +319,7 @@
         <WalletOverlay />
     {/if}
     <div class="flex-grow">
-        <!--<slot />-->
+        <slot />
     </div>
     <div class="text-stone-700 md:w-1/4 mx-auto">
         <div class="w-full">
