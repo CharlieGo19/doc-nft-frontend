@@ -38,19 +38,16 @@
 <div
     in:fly={{ x: 400, duration: 800 }}
     out:fade
-    class="relative flex-col h-24 rounded-lg bg-[#031b1f]/95 backdrop-blur-lg text-white"
->
+    class="relative flex-col h-24 rounded-lg bg-[#031b1f]/95 backdrop-blur-lg text-white">
     <div class="flex flex-row h-[92px] items-center">
         <img
             src={setToastStyling(messageLevel)[2]}
             alt={messageLevel}
-            class="h-10 w-1/5"
-        />
+            class="h-10 w-1/5" />
         <span class="w-4/5 pr-2 text-center">{messageContent}</span>
     </div>
     <span
         class="absolute w-full h-0 right-0 bottom-0 border-4 rounded-lg {setToastStyling(
             messageLevel
-        )[0]} shadow-toast {setToastStyling(messageLevel)[1]}"
-    />
+        )[0]} shadow-toast {setToastStyling(messageLevel)[1]}" />
 </div>

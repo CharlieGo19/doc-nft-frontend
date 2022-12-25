@@ -22,14 +22,12 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-[3px] font-Poppins">
     {#each topNftCollections as { name, verified, src, size, fp, volume, volumeIncrease }}
         <div
-            class="flex flex-row min-w-[300px] rounded-2xl bg-black/10 hover:bg-black/30"
-        >
+            class="flex flex-row min-w-[300px] rounded-2xl bg-black/10 hover:bg-black/30">
             <div class="flex flex-row w-3/6">
                 <img
                     {src}
                     alt="Collection: {name}"
-                    class="h-16 w-16 border-2 border-mint-edge mt-auto mb-auto object-cover rounded-2xl"
-                />
+                    class="h-16 w-16 border-2 border-mint-edge mt-auto mb-auto object-cover rounded-2xl" />
                 <div class="flex flex-col pl-2">
                     <p class="pt-[10px] font-bold">{name}</p>
                     <p class="text-sm">{fmtr.format(size)} NFTs</p>
