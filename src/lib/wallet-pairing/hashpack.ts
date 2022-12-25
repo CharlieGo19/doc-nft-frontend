@@ -1,10 +1,29 @@
 import { manageToast, type Toast } from "$lib/toast/toast";
 import { HashConnect, type HashConnectTypes } from "hashconnect";
 import type { HashConnectProvider } from "hashconnect/dist/esm/provider/provider";
-import { HASHPACK_EXTENSION_NOT_FOUND_MESSAGE, HASHPACK_FAILED_TO_UNPAIR_WALLET, HASHPACK_PAIR_SUCCESS, HASHPACK_UNPAIR_SUCCESS, HASHPACK_WALLET, 
-    NFT_MARKET_PLACE, NFT_MARKET_PLACE_URL, TOAST_LEVEL_ERROR, TOAST_LEVEL_SUCCESS, TOAST_TIME_TO_LIVE_MEDIUM } from "src/stores/constants";
-import { accountBal, accountId, hashPackExtensionData, hashpackPairingString, hashPackProvider, hashPackTopic, 
-    isWalletPaired, pairedWallet, walletObj } from "src/stores/wallet";
+import {
+    HASHPACK_EXTENSION_NOT_FOUND_MESSAGE,
+    HASHPACK_FAILED_TO_UNPAIR_WALLET,
+    HASHPACK_PAIR_SUCCESS,
+    HASHPACK_UNPAIR_SUCCESS,
+    HASHPACK_WALLET,
+    NFT_MARKET_PLACE,
+    NFT_MARKET_PLACE_URL,
+    TOAST_LEVEL_ERROR,
+    TOAST_LEVEL_SUCCESS,
+    TOAST_TIME_TO_LIVE_MEDIUM,
+} from "src/stores/constants";
+import {
+    accountBal,
+    accountId,
+    hashPackExtensionData,
+    hashpackPairingString,
+    hashPackProvider,
+    hashPackTopic,
+    isWalletPaired,
+    pairedWallet,
+    walletObj,
+} from "src/stores/wallet";
 
 const hashConnect: HashConnect = new HashConnect(true);
 const metaData: HashConnectTypes.AppMetadata = {
@@ -21,24 +40,24 @@ let aid: string | null;
 let ht: string;
 let hp: HashConnectProvider | undefined;
 
-let ps: string | null; 
-hashpackPairingString.subscribe(val => {
+let ps: string | null;
+hashpackPairingString.subscribe((val) => {
     ps = val;
 });
 
-isWalletPaired.subscribe(val => {
+isWalletPaired.subscribe((val) => {
     iwp = val;
 });
 
-accountId.subscribe(val => {
+accountId.subscribe((val) => {
     aid = val;
 });
 
-hashPackTopic.subscribe(val => {
+hashPackTopic.subscribe((val) => {
     ht = val;
 });
 
-hashPackProvider.subscribe(val => {
+hashPackProvider.subscribe((val) => {
     hp = val;
 });
 
@@ -46,28 +65,27 @@ hashPackExtensionData.subscribe((hped) => {
     hemd = hped;
 });
 
-
 hashConnect.foundExtensionEvent.once((fee: HashConnectTypes.WalletMetadata) => {
     hashPackExtensionData.set(fee);
 });
 
-hashConnect.pairingEvent.on(async() => {
+hashConnect.pairingEvent.on(async () => {
     isWalletPaired.set(true);
     pairedWallet.set(HASHPACK_WALLET);
     await setAccountInfo();
-    
-    let t: Toast = { 
+
+    let t: Toast = {
         messageLevel: TOAST_LEVEL_SUCCESS,
-        messageContent: HASHPACK_PAIR_SUCCESS
+        messageContent: HASHPACK_PAIR_SUCCESS,
     };
     manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
 });
 
-hashConnect.acknowledgeMessageEvent.on(e => {
+hashConnect.acknowledgeMessageEvent.on((e) => {
     // TODO: Something?
 });
 
-hashConnect.connectionStatusChangeEvent.on(e => {
+hashConnect.connectionStatusChangeEvent.on((e) => {
     // TODO: Poll connection status.
 });
 
@@ -88,15 +106,17 @@ export async function initHashpack(): Promise<void> {
     }
     walletObj.set(hashConnect);
     hashpackPairingString.set(initData.pairingString);
-    hashPackProvider.set(hashConnect.getProvider("testnet", initData.topic, aid as string)); //TODO: Abstract network to const.
-};
+    hashPackProvider.set(
+        hashConnect.getProvider("testnet", initData.topic, aid as string)
+    ); //TODO: Abstract network to const.
+}
 
 export async function pairWithExtension(): Promise<void> {
     // TODO: Safeguard here, ensure to clear HP data.
     if (hemd === undefined || hemd.name !== HASHPACK_WALLET) {
         let t: Toast = {
             messageLevel: TOAST_LEVEL_ERROR,
-            messageContent: HASHPACK_EXTENSION_NOT_FOUND_MESSAGE
+            messageContent: HASHPACK_EXTENSION_NOT_FOUND_MESSAGE,
         };
         manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
         return;
@@ -112,10 +132,10 @@ export async function unpairHashPackWallet(): Promise<void> {
     if (hashConnect.hcData.pairingData.length !== 0) {
         let t: Toast = {
             messageLevel: TOAST_LEVEL_ERROR,
-            messageContent: HASHPACK_FAILED_TO_UNPAIR_WALLET
+            messageContent: HASHPACK_FAILED_TO_UNPAIR_WALLET,
         };
         manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
-        return
+        return;
     } else {
         // TODO: Check flags, as defaults to HP overlay - reset.
         walletObj.set(undefined);
@@ -126,7 +146,7 @@ export async function unpairHashPackWallet(): Promise<void> {
         isWalletPaired.set(false);
         let t: Toast = {
             messageLevel: TOAST_LEVEL_SUCCESS,
-            messageContent: HASHPACK_UNPAIR_SUCCESS
+            messageContent: HASHPACK_UNPAIR_SUCCESS,
         };
         manageToast(t, TOAST_TIME_TO_LIVE_MEDIUM);
         return;
@@ -136,10 +156,18 @@ export async function unpairHashPackWallet(): Promise<void> {
 async function setAccountInfo(): Promise<void> {
     accountId.set(hashConnect.hcData.pairingData[0].accountIds[0]);
     hashPackTopic.set(hashConnect.hcData.topic);
-    hashPackProvider.set(hashConnect.getProvider("testnet", hashConnect.hcData.topic, aid as string)); // TODO: Abstract network to const.
-    
-    const accBal = (await (hp as HashConnectProvider).getAccountBalance(aid as string)).hbars.toBigNumber();
-    const fmtr: Intl.NumberFormat = new Intl.NumberFormat('en-gb'); // TODO: Refactor
+    hashPackProvider.set(
+        hashConnect.getProvider(
+            "testnet",
+            hashConnect.hcData.topic,
+            aid as string
+        )
+    ); // TODO: Abstract network to const.
+
+    const accBal = (
+        await (hp as HashConnectProvider).getAccountBalance(aid as string)
+    ).hbars.toBigNumber();
+    const fmtr: Intl.NumberFormat = new Intl.NumberFormat("en-gb"); // TODO: Refactor
     // @ts-ignore
     accountBal.set(fmtr.format(accBal));
 }

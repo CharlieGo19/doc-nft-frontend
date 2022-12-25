@@ -1,31 +1,31 @@
 const config = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
+    content: ["./src/**/*.{html,js,svelte,ts}"],
 
-  theme: {
-    extend: {
-      colors: {
-        'light-mode-mint': '#A0EFE9',
-        'light-mint': '#82FFF2',
-        'mint-edge': '#33B3A6',
-      },
-      flexGrow: {
-        '2': 2
-      },
-      minWidth: {
-        '73': '300px',
-      },
-      fontFamily: {
-        'material-symbols-outlined': ['"Material Symbols Outlined"'],
-        'orbitron': ['"Orbitron"'],
-        'Poppins': ['"Poppins"'],
-      },
-      boxShadow: {
-        'toast': '0 -4px 22px 1px',
-      }
+    theme: {
+        extend: {
+            colors: {
+                "light-mode-mint": "#A0EFE9",
+                "light-mint": "#82FFF2",
+                "mint-edge": "#33B3A6",
+            },
+            flexGrow: {
+                2: 2,
+            },
+            minWidth: {
+                73: "300px",
+            },
+            fontFamily: {
+                "material-symbols-outlined": ['"Material Symbols Outlined"'],
+                orbitron: ['"Orbitron"'],
+                Poppins: ['"Poppins"'],
+            },
+            boxShadow: {
+                toast: "0 -4px 22px 1px",
+            },
+        },
     },
-  },
 
-  plugins: [],
+    plugins: [],
 };
 
 module.exports = config;

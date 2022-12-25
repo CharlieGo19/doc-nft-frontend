@@ -1,14 +1,15 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
-import path from 'path';
+import { sveltekit } from "@sveltejs/kit/vite";
+import type { UserConfig } from "vite";
+import path from "path";
 
 const config: UserConfig = {
-	plugins: [sveltekit()],
-	resolve: {
-		alias: {
-			'src': path.resolve(__dirname, './src'),
-		},
-	},
+    plugins: [sveltekit()],
+    resolve: {
+        alias: {
+            // eslint-disable-next-line no-undef
+            src: path.resolve(__dirname, "./src"),
+        },
+    },
 };
 
 export default config;

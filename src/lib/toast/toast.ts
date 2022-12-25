@@ -10,10 +10,10 @@ export function manageToast(toast: Toast, duration: number) {
     const idNumber: number = Math.floor(Math.random() * 10000);
     // @ts-ignore
     const def: Toast = {
-        id: idNumber
+        id: idNumber,
     };
 
-    toasts.update((all: Toast[]) => [{...def, ...toast}, ...all]);
+    toasts.update((all: Toast[]) => [{ ...def, ...toast }, ...all]);
     setTimeout(() => {
         toasts.update((all: Toast[]) => all.filter((t) => t.id !== idNumber));
     }, duration);

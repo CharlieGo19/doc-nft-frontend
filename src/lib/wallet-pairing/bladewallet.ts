@@ -1,12 +1,16 @@
 import { BladeSigner, HederaNetwork } from "@bladelabs/blade-web3.js";
 import type { HashConnect } from "hashconnect";
-import { BLADE_WALLET, NFT_MARKET_PLACE, WALLET_ALREADY_PAIRED } from "src/stores/constants";
+import {
+    BLADE_WALLET,
+    NFT_MARKET_PLACE,
+    WALLET_ALREADY_PAIRED,
+} from "src/stores/constants";
 import { isWalletPaired, pairedWallet, walletObj } from "src/stores/wallet";
 import { checkPairedWallet, setAccountInfo } from "./common";
 
 let bs: HashConnect | BladeSigner | undefined;
 
-walletObj.subscribe(val => {
+walletObj.subscribe((val) => {
     bs = val;
 });
 
@@ -19,9 +23,9 @@ export async function initBlade(): Promise<void | never> {
     if (wallet === null || wallet === BLADE_WALLET) {
         const params = {
             network: HederaNetwork.Testnet, // TODO: Extract to env variable.
-            dAppCode: NFT_MARKET_PLACE // TODO: Contact blade regarding a setup for dAppCode?
+            dAppCode: NFT_MARKET_PLACE, // TODO: Contact blade regarding a setup for dAppCode?
         };
-        
+
         try {
             walletObj.set(new BladeSigner());
             // @ts-ignore
@@ -29,8 +33,7 @@ export async function initBlade(): Promise<void | never> {
             isWalletPaired.set(true);
             pairedWallet.set(BLADE_WALLET);
             setAccountInfo();
-
-        }catch(e) {
+        } catch (e) {
             walletObj.set(undefined);
             throw e;
         }
@@ -44,8 +47,9 @@ export function getAccountId(): string {
 }
 
 export async function getAccountBalance(): Promise<string> {
-    const fmtr: Intl.NumberFormat = new Intl.NumberFormat('en-gb');
-    const bal: any = await (await (bs as BladeSigner).getAccountBalance()).hbars.toBigNumber(); // TODO: Refactor
-    return(fmtr.format(bal));
+    const fmtr: Intl.NumberFormat = new Intl.NumberFormat("en-gb");
+    const bal: any = await (
+        await (bs as BladeSigner).getAccountBalance()
+    ).hbars.toBigNumber(); // TODO: Refactor
+    return fmtr.format(bal);
 }
-

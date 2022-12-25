@@ -3,29 +3,29 @@ import preprocess from "svelte-preprocess";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // Consult https://github.com/sveltejs/svelte-preprocess
-  // for more information about preprocessors
-  preprocess: [
-    preprocess({
-      postcss: true,
-    }),
-  ],
+    // Consult https://github.com/sveltejs/svelte-preprocess
+    // for more information about preprocessors
+    preprocess: [
+        preprocess({
+            postcss: true,
+        }),
+    ],
 
-  kit: {
-    adapter: adapter({
-      pages: 'build',
-      assets: 'build',
-      fallback: true // TODO: Configure this.
-    }),
-    files: {
-      assets: 'static',
-      lib: 'src/lib',
-    }
-    /*prerender: {
+    kit: {
+        adapter: adapter({
+            pages: "build",
+            assets: "build",
+            fallback: true, // TODO: Configure this.
+        }),
+        files: {
+            assets: "static",
+            lib: "src/lib",
+        },
+        /*prerender: {
       // This can be false if you're using a fallback (i.e. SPA mode)
       default: true
     }*/
-  },
+    },
 };
 
 export default config;
