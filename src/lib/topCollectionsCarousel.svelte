@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import type { TopCollectionsCell } from "src/stores";
 
     export let topNftCollections: TopCollectionsCell[];
@@ -7,7 +8,7 @@
     const fmtr = new Intl.NumberFormat("en-GB");
 </script>
 
-<div class="flex flex-row pt-9">
+<div class="flex flex-row pt-9 dark:text-white">
     <div class="flex flex-row md:w-1/2 w-full font-bold">
         <div class="w-3/6 pl-1">Collection</div>
         <div class="w-1/6 text-center">Floor Price</div>
@@ -22,12 +23,15 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-[3px] font-Poppins">
     {#each topNftCollections as { name, verified, src, size, fp, volume, volumeIncrease }}
         <div
-            class="flex flex-row min-w-[300px] rounded-2xl bg-black/10 hover:bg-black/30">
+            class="flex flex-row min-w-[300px] rounded-2xl bg-black/10 dark:bg-deep-dark-mint/40 hover:bg-black/30 dark:hover:bg-deep-dark-mint dark:text-white cursor-pointer"
+            on:click={() => {
+                goto("/collection/0.0.1234");
+            }}>
             <div class="flex flex-row w-3/6">
                 <img
                     {src}
                     alt="Collection: {name}"
-                    class="h-16 w-16 border-2 border-mint-edge mt-auto mb-auto object-cover rounded-2xl" />
+                    class="h-16 w-16 border-2 border-mint-edge dark:border-dark-mint mt-auto mb-auto object-cover rounded-2xl" />
                 <div class="flex flex-col pl-2">
                     <p class="pt-[10px] font-bold">{name}</p>
                     <p class="text-sm">{fmtr.format(size)} NFTs</p>

@@ -33,20 +33,22 @@
         bind:this={carousel}
         class="absolute flex w-full z-10 no-scrollbar overflow-x-auto gap-7 snap-x snap-mandatory scroll-smooth 
                             sm:before:content-none sm:pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw] md:rounded-2xl">
-        {#each nfts as { name, creator, src, fp }}
+        {#each nfts as { name, creator, src, fp, serial }}
             <li
                 class="relative w-72 max-h-[300px] h-[300px] shrink-0 snap-center rounded-2xl">
-                <img
-                    {src}
-                    alt={name}
-                    class="relative object-cover h-[300px] w-72 rounded-xl z-20" />
-                <div
-                    class="absolute w-full bottom-0 p-2 text-white bg-black/30 z-30 backdrop-blur-sm rounded-b-xl">
-                    <p class="text-base font-bold">{creator}</p>
-                    <p class="text-sm font-light pb-1">
-                        Floor Price: {fmtr.format(fp)}
-                    </p>
-                </div>
+                <a href="/collection/0.0.12345/{serial}">
+                    <img
+                        {src}
+                        alt={name}
+                        class="relative object-cover h-[300px] w-72 rounded-xl z-10" />
+                    <div
+                        class="absolute w-full bottom-0 p-2 text-white bg-black/30 z-10 backdrop-blur-sm rounded-b-xl">
+                        <p class="text-base font-bold">{creator}</p>
+                        <p class="text-sm font-light pb-1">
+                            Floor Price: {fmtr.format(fp)}
+                        </p>
+                    </div>
+                </a>
             </li>
         {/each}
     </ul>

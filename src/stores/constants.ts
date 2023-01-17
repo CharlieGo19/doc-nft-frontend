@@ -1,8 +1,9 @@
 // NFT Platform
-export const NFT_MARKET_PLACE = "QNTM";
+export const NFT_MARKET_PLACE = "Agorah";
 
 // Application Consts
 export const NFT_MARKET_PLACE_URL = "http://localhost:5173"; // TODO: Change this for production.
+export const HEDERA_LOWERCASE_H = "ħ";
 
 // Wallets
 export const BLADE_WALLET = "Blade Wallet";

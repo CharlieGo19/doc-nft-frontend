@@ -1,4 +1,5 @@
 <script type="ts">
+    import { goto } from "$app/navigation";
     import type { PopularCollection } from "src/stores";
     import { scrollLeft, scrollRight } from "./common/functions";
 
@@ -33,7 +34,10 @@
                                 sm:before:content-none sm:pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw] md:rounded-2xl">
         {#each popularCollections as { name, verified, itemOneSrc, itemTwoSrc, itemThreeSrc, size }}
             <li
-                class="relative h-80 w-72 shrink-0 snap-center rounded-2xl border-2 border-mint-edge shadow-xl font-Poppins  bg-white">
+                class="relative h-80 w-72 shrink-0 snap-center rounded-2xl border-2 border-mint-edge dark:border-dark-mint shadow-xl font-Poppins bg-white dark:bg-deep-dark-mint dark:text-white"
+                on:click={() => {
+                    goto("/collection/0.0.1234");
+                }}>
                 <div class="flex flex-row h-5/6 w-full p-2">
                     <div class="w-1/2">
                         <img
@@ -64,7 +68,7 @@
                     <div class="w-1/2 pr-2">
                         <button
                             type="submit"
-                            class="h-[24px] w-24 border-[1px] mt-[11px] border-mint-edge rounded-md float-right hover:bg-mint-edge hover:text-white text-sm font-semibold"
+                            class="h-[24px] w-24 border-[1px] mt-[11px] border-mint-edge dark:border-dark-mint rounded-md float-right hover:bg-mint-edge dark:hover:bg-white hover:text-white dark:hover:text-deep-dark-mint text-sm font-semibold"
                             >EXPLORE</button>
                     </div>
                 </div>

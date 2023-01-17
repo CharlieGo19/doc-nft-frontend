@@ -16,7 +16,6 @@ import {
 import {
     accountBal,
     accountId,
-    hashpackPairingString,
     isWalletPaired,
     pairedWallet,
 } from "src/stores/wallet";
@@ -25,7 +24,6 @@ import { initHashpack, unpairHashPackWallet } from "./hashpack";
 
 let iwp: boolean;
 let pw: string | null;
-let hps: string | null;
 
 isWalletPaired.subscribe((val) => {
     iwp = val;
@@ -33,10 +31,6 @@ isWalletPaired.subscribe((val) => {
 
 pairedWallet.subscribe((val) => {
     pw = val;
-});
-
-hashpackPairingString.subscribe((val) => {
-    hps = val;
 });
 
 export async function initPairedWallet() {
@@ -87,6 +81,7 @@ export async function startPairing(wallet: string): Promise<void> {
             }
             break;
         default:
+            // eslint-disable-next-line no-case-declarations
             let t: Toast = {
                 messageLevel: TOAST_LEVEL_ERROR,
                 messageContent: INVALID_WALLET_SELECTION,

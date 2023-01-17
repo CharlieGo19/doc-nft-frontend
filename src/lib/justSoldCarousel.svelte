@@ -34,13 +34,15 @@
         bind:this={carousel}
         class="absolute flex w-full z-10 mt-10 no-scrollbar overflow-x-auto gap-[54px] snap-x snap-mandatory scroll-smooth 
                                     sm:before:content-none sm:pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw] md:rounded-2xl">
-        {#each nftsSold as { name, src, fireStrength, owner, ownerImg, price }}
+        {#each nftsSold as { name, src, fireStrength, owner, ownerImg, price, serial }}
             <li
-                class="relative w-[268px] h-[363px] bg-white shrink-0 snap-center rounded-2xl border-2 border-mint-edge shadow-xl font-Poppins">
-                <img
-                    {src}
-                    alt={name}
-                    class="relative object-cover p-2 ml-auto mr-auto rounded-2xl" />
+                class="relative w-[268px] h-[363px] bg-white dark:bg-deep-dark-mint shrink-0 snap-center rounded-2xl border-2 border-mint-edge dark:border-dark-mint shadow-xl dark:text-white font-Poppins">
+                <a href="/collection/0.0.12345/{serial}">
+                    <img
+                        {src}
+                        alt={name}
+                        class="relative object-cover p-2 ml-auto mr-auto rounded-2xl" />
+                </a>
                 <div class="flex flex-col pl-2 pr-2">
                     <span class="flex flex-row">
                         <p class="float-left w-1/2 font-semibold">{name}</p>
@@ -60,7 +62,7 @@
                     </div>
                 </div>
                 <hr
-                    class="bg-mint-edge border-0 h-[1px] w-[252px] mt-1 ml-auto mr-auto" />
+                    class="bg-mint-edge dark:bg-dark-mint border-0 h-[1px] w-[252px] mt-1 ml-auto mr-auto" />
                 <div class="flex flex-row text-xs">
                     <div class="w-1/2 float-left pl-2">
                         <p class="h-[24px] mt-[10px] font-semibold">
@@ -70,9 +72,10 @@
                     <div class="w-1/2 float-right pr-2">
                         <button
                             type="submit"
-                            class="h-[24px] w-24 border-[1px] mt-[6px] border-mint-edge rounded-md float-right
-                                                    hover:bg-mint-edge hover:text-white font-semibold"
-                            >BUY NOW</button>
+                            class="h-[24px] w-24 border-[1px] mt-[6px] border-mint-edge dark:border-dark-mint rounded-md float-right
+                                                    hover:bg-mint-edge dark:hover:bg-white hover:text-white dark:hover:text-deep-dark-mint font-semibold">
+                            BUY NOW
+                        </button>
                     </div>
                 </div>
             </li>

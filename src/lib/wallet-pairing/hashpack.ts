@@ -40,10 +40,10 @@ let aid: string | null;
 let ht: string;
 let hp: HashConnectProvider | undefined;
 
-let ps: string | null;
+/*let ps: string | null;
 hashpackPairingString.subscribe((val) => {
     ps = val;
-});
+});*/
 
 isWalletPaired.subscribe((val) => {
     iwp = val;
@@ -69,7 +69,7 @@ hashConnect.foundExtensionEvent.once((fee: HashConnectTypes.WalletMetadata) => {
     hashPackExtensionData.set(fee);
 });
 
-hashConnect.pairingEvent.on(async () => {
+hashConnect.pairingEvent.once(async () => {
     isWalletPaired.set(true);
     pairedWallet.set(HASHPACK_WALLET);
     await setAccountInfo();
@@ -82,10 +82,12 @@ hashConnect.pairingEvent.on(async () => {
 });
 
 hashConnect.acknowledgeMessageEvent.on((e) => {
+    console.log(e);
     // TODO: Something?
 });
 
 hashConnect.connectionStatusChangeEvent.on((e) => {
+    console.log(e);
     // TODO: Poll connection status.
 });
 

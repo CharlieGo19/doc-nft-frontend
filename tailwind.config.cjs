@@ -1,12 +1,14 @@
 const config = {
     content: ["./src/**/*.{html,js,svelte,ts}"],
-
+    darkMode: "class",
     theme: {
         extend: {
             colors: {
                 "light-mode-mint": "#A0EFE9",
                 "light-mint": "#82FFF2",
                 "mint-edge": "#33B3A6",
+                "dark-mint": "#137A63",
+                "deep-dark-mint": "#0A3A2A",
             },
             flexGrow: {
                 2: 2,
@@ -28,4 +30,5 @@ const config = {
     plugins: [],
 };
 
+// eslint-disable-next-line no-undef
 module.exports = config;

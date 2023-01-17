@@ -1,10 +1,28 @@
 import { type Readable, readable } from "svelte/store";
-
+// TODO: Refactor these to all extend NFT - includes tokenId & serial.
 export type NFTcard = {
     name: string;
     creator: string;
     src: string;
     fp: number;
+    serial: number;
+};
+
+// TODO: New NFTCard
+export type NFT = {
+    tokenId: string;
+    name: string;
+    creator: string;
+    src: string;
+    serial: number;
+};
+
+// TODO: Slap traits here.
+export type Collection = {
+    tokenId: string;
+    maxSerial: number;
+    creator: string;
+    floorPrice: number;
 };
 
 export type MostFireCard = {
@@ -14,6 +32,7 @@ export type MostFireCard = {
     owner: string;
     ownerImg: string;
     price: number;
+    serial: number;
 };
 
 export type TopCollectionsCell = {
@@ -24,6 +43,7 @@ export type TopCollectionsCell = {
     fp: number;
     volume: number;
     volumeIncrease: number;
+    collectionId: number;
 };
 
 export type PopularCollection = {
@@ -33,6 +53,13 @@ export type PopularCollection = {
     itemTwoSrc: string;
     itemThreeSrc: string;
     size: number;
+};
+
+export type DummySaleHistory = {
+    price: number;
+    from: string;
+    to: string;
+    date: string;
 };
 
 export const nftMarketPlace: Readable<string> = readable("QNTUM");
@@ -45,66 +72,77 @@ export const homepageLaunchPadFeed: NFTcard[] = [
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 2",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 3",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 4",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Funk",
         creator: "Spacebar",
         src: "/temp_demo/spacebar.jpg",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 6",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Funk 2",
         creator: "Spacebar",
         src: "/temp_demo/spacebar2.jpg",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Funk 3",
         creator: "Spacebar",
         src: "/temp_demo/spacebar3.jpg",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 9",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 10",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
     {
         name: "Monke 11",
         creator: "The Doc",
         src: "/temp_demo/monke.png",
         fp: 200,
+        serial: 3,
     },
 ];
 
@@ -116,6 +154,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #02",
@@ -124,6 +163,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #03",
@@ -132,6 +172,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #04",
@@ -140,6 +181,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #05",
@@ -148,6 +190,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #06",
@@ -156,6 +199,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #07",
@@ -164,6 +208,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #08",
@@ -172,6 +217,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #09",
@@ -180,6 +226,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #10",
@@ -188,6 +235,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #11",
@@ -196,6 +244,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #12",
@@ -204,6 +253,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #13",
@@ -212,6 +262,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #14",
@@ -220,6 +271,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #015",
@@ -228,6 +280,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
     {
         name: "NFTName #16",
@@ -236,6 +289,7 @@ export const mostFireNfts: MostFireCard[] = [
         owner: "CharlieGo_",
         ownerImg: "/temp_demo/charlieGo.png",
         price: 1000,
+        serial: 1,
     },
 ];
 
@@ -248,24 +302,27 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2401,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 1,
     },
     {
         name: "Wen Moon",
         verified: true,
-        src: "/temp_demo/doc1.png",
+        src: "/temp_demo/charlieGo.png",
         size: 6969,
         fp: 2402,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 2,
     },
     {
-        name: "Wen Moon",
+        name: "Monke",
         verified: true,
-        src: "/temp_demo/doc1.png",
+        src: "/temp_demo/monke.png",
         size: 6969,
         fp: 2403,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
     {
         name: "Wen Moon",
@@ -275,6 +332,7 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2404,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
     {
         name: "Wen Moon",
@@ -284,6 +342,7 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2405,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
     {
         name: "Wen Moon",
@@ -293,6 +352,7 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2406,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
     {
         name: "Wen Moon",
@@ -302,6 +362,7 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2407,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
     {
         name: "Wen Moon",
@@ -311,6 +372,7 @@ export const homepageTopCollectionFeed: TopCollectionsCell[] = [
         fp: 2408,
         volume: 500000,
         volumeIncrease: 12000,
+        collectionId: 3,
     },
 ];
 
@@ -444,5 +506,235 @@ export const SearchDummyData = [
     {
         value: "0.0.12347",
         type: "token_id",
+    },
+];
+
+export const dummyHistoryForNftPage: DummySaleHistory[] = [
+    {
+        price: 1000,
+        from: "The Doc",
+        to: "SpaceBar",
+        date: "25/12/2022",
+    },
+    {
+        price: 800,
+        from: "The Doc",
+        to: "Uriah",
+        date: "25/12/2022",
+    },
+    {
+        price: 1400,
+        from: "Uriah",
+        to: "SpaceBar",
+        date: "25/12/2022",
+    },
+    {
+        price: 10000,
+        from: "The Doc",
+        to: "The Doc",
+        date: "25/12/2022",
+    },
+    {
+        price: 8000,
+        from: "The Doc",
+        to: "Sevvo",
+        date: "25/12/2022",
+    },
+    {
+        price: 600,
+        from: "Sevvo",
+        to: "SpaceBar",
+        date: "25/12/2022",
+    },
+    {
+        price: 15000,
+        from: "Sevvo",
+        to: "Leemonade",
+        date: "25/12/2022",
+    },
+];
+
+export const dummyCollection: Collection = {
+    tokenId: "0.0.12345",
+    maxSerial: 24,
+    creator: "Studio Ennui",
+    floorPrice: 10000,
+};
+
+export const dummyNft: NFT[] = [
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 1,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 2,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 3,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 4,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 5,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 6,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 7,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 8,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 9,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 10,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 11,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 12,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 13,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 14,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 14,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 15,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 16,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 17,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 18,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 19,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 20,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 21,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 22,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 23,
+    },
+    {
+        tokenId: "0.0.12345",
+        name: "WenMoon",
+        creator: "Studio Ennui",
+        src: "/temp_demo/wenMoon.gif",
+        serial: 24,
     },
 ];

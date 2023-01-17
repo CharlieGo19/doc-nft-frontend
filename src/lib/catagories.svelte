@@ -48,7 +48,7 @@
                 <img
                     src={catagorie.image}
                     alt={catagorie.urlText}
-                    class="absolute w-full h-full border-2 border-mint-edge rounded-xl shadow-2xl object-cover" />
+                    class="absolute w-full h-full border-2 border-mint-edge dark:border-dark-mint rounded-xl shadow-2xl object-cover" />
                 <span
                     class="absolute w-[286px] h-1/5 bottom-0 ml-[1px] rounded-b-xl bg-black/70 backdrop-blur-sm font-bold text-white text-center">
                     <p class="mt-[15px]">
