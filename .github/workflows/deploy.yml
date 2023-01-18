@@ -1,0 +1,28 @@
+name: Deploy to Bunny CDN
+
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+        
+      - name: Deploy to Bunny CDN
+        uses: own3d/bunny-action@main
+        env:
+          BUNNY_API_ACCESS_KEY: ${{secrets.BUNNY_CDN_STORAGE_KEY }}
+          BUNNY_STORAGE_HOSTNAME: uk.storage.bunnycdn.com
+          BUNNY_STORAGE_USERNAME: ${{ secrets.BUNNY_STORAGE_USERNAME }}
+          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+          BUNNY_PULL_ZONE_ID: 865969
+        with:
+          args: deploy --dir=build
