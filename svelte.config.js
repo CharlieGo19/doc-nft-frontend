@@ -13,18 +13,21 @@ const config = {
 
     kit: {
         adapter: adapter({
-            pages: "build",
-            assets: "build",
-            fallback: true, // TODO: Configure this.
+            fallback: "index.html",
         }),
         files: {
             assets: "static",
             lib: "src/lib",
         },
-        /*prerender: {
-      // This can be false if you're using a fallback (i.e. SPA mode)
-      default: true
-    }*/
+        // prerender: {
+        //     // This can be false if you're using a fallback (i.e. SPA mode)
+        //     entries: [],
+        // },
+    },
+    vite: {
+        build: {
+            minify: true,
+        },
     },
 };
 
