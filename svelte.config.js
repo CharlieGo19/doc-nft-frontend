@@ -15,7 +15,7 @@ const config = {
         adapter: adapter({
             pages: "build",
             assets: "build",
-            fallback: "index.html",
+            fallback: "200.html",
         }),
         prerender: {
             entries: ["*"],
