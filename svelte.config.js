@@ -18,7 +18,7 @@ const config = {
             fallback: "index.html",
         }),
         prerender: {
-            entries: [],
+            entries: ["*"],
         },
         files: {
             assets: "static",
