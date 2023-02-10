@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.no-scrollbat-x {
+		overflow-x: scroll;
+	}
+	.no-scrollbar-x::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar-x {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	@media screen and (max-width: 767px) {
+		#ad-1 {
+			content: url("/ads/main_page_headline_ad_mobile.png");
+			/* background-repeat: no-repeat;
+			background-position: 0% 0%;
+			background-size: 100% 100%; */
+		}
+	}
+	@media (min-width: 640.5px) {
+		#ad-1 {
+			content: url("/ads/main_page_headline_ad.png");
+			/* background-repeat: no-repeat;
+			background-position: 50% 50%;
+			background-size: 100% 100%; */
+		}
+	}
+}
