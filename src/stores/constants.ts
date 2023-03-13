@@ -3,6 +3,7 @@ export const NFT_MARKET_PLACE = "Agorah";
 
 // Application Consts
 export const NFT_MARKET_PLACE_URL = "https://agorah.io/";
+export const AGORAH_API_BASE_URI = "http://localhost:4200/v0/";
 export const HEDERA_LOWERCASE_H = "ħ";
 
 // Wallets
