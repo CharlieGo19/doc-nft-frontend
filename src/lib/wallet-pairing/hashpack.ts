@@ -1,3 +1,4 @@
+import type BigNumber from "bignumber.js";
 import { HashConnect, type HashConnectTypes } from "hashconnect";
 import type { HashConnectProvider } from "hashconnect/dist/esm/provider/provider";
 import {
@@ -6,6 +7,7 @@ import {
 	HASHPACK_PAIR_SUCCESS,
 	HASHPACK_UNPAIR_SUCCESS,
 	HASHPACK_WALLET,
+	HEDERA_NETWORK,
 	NFT_MARKET_PLACE,
 	NFT_MARKET_PLACE_URL,
 	TOAST_LEVEL_ERROR,
@@ -81,23 +83,25 @@ hashConnect.pairingEvent.once(async () => {
  * If it's an existing pairing it will also set account balance & Id.
  */
 export async function initHashpack(): Promise<void> {
-	const initData = await hashConnect.init(metaData, "testnet", true); // TODO: Abstract network to const
+	const initData = await hashConnect.init(metaData, HEDERA_NETWORK, true); // TODO: Abstract network to const
 
 	if (initData.savedPairings.length > 0) {
 		if (!iwp) {
 			isWalletPaired.set(true);
-			hashPackTopic.set(hashConnect.hcData.topic);
-			hashPackProvider.set(
-				hashConnect.getProvider("testnet", hashConnect.hcData.topic, aid as string)
-			);
+			pairedWallet.set(HASHPACK_WALLET);
 		}
+
+		hashPackTopic.set(hashConnect.hcData.topic);
+		hashPackProvider.set(
+			hashConnect.getProvider(HEDERA_NETWORK, hashConnect.hcData.topic, aid as string)
+		);
 		await setAccountInfo();
 		// TODO: Create some logic to ensure only 1 account is paired for now.
 		// MultiAccount support will come.
 	}
 	walletObj.set(hashConnect);
 	hashpackPairingString.set(initData.pairingString);
-	hashPackProvider.set(hashConnect.getProvider("testnet", initData.topic, aid as string)); //TODO: Abstract network to const.
+	hashPackProvider.set(hashConnect.getProvider(HEDERA_NETWORK, initData.topic, aid as string)); //TODO: Abstract network to const.
 }
 
 /**
@@ -144,9 +148,10 @@ export function getHashpackAccountId(): string {
  * @returns {string} Account Balance as reported by Hashpack.
  */
 export async function getHashpackAccountBalance(): Promise<string> {
-	const accBal: any = (
+	const accBal: BigNumber = (
 		await (hp as HashConnectProvider).getAccountBalance(aid as string)
 	).hbars.toBigNumber();
+
 	const fmtr: Intl.NumberFormat = new Intl.NumberFormat("en-gb"); // TODO: Refactor
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore

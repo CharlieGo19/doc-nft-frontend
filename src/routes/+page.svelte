@@ -13,11 +13,7 @@
 	import MostfireCarousel from "src/lib/components/landing/mostfireCarousel.svelte";
 	import TopCollectionsCarousel from "src/lib/components/landing/topCollectionsCarousel.svelte";
 	import PopularCollectionsCarousel from "src/lib/components/landing/popularCollectionsCarousel.svelte";
-	import {
-		MAIN_PAGE_HEADLINE_AD,
-		MAIN_PAGE_HEADLINE_AD_ALT,
-		NFT_MARKET_PLACE,
-	} from "src/stores/constants";
+	import { NFT_MARKET_PLACE } from "src/stores/constants";
 	import Catagories from "src/lib/components/landing/catagories.svelte";
 
 	let nfts: NFTcard[] = homepageLaunchPadFeed;

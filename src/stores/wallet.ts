@@ -4,6 +4,7 @@ import type { HashConnect, HashConnectTypes } from "hashconnect";
 import type { HashConnectProvider } from "hashconnect/dist/esm/provider/provider";
 import { retrieveFromLocal, commitToLocal } from "./helpers";
 import { IS_WALLET_PAIRED_KEY, PAIRED_WALLET_KEY } from "./constants";
+import type { CuratedNft } from "src/lib/common/interfaces";
 
 // Values to commit to localStorage.
 export const isWalletPaired: Writable<boolean> = writable(
@@ -20,6 +21,7 @@ commitToLocal(PAIRED_WALLET_KEY, pairedWallet);
 export const walletObj: Writable<HashConnect | BladeSigner | undefined> = writable(undefined);
 export const accountId: Writable<string | null> = writable(null);
 export const accountBal: Writable<string> = writable("0");
+export const nftCuration: Writable<CuratedNft[] | undefined> = writable(undefined);
 
 // TODO: Change if needed in localStorage
 export const hashpackPairingString: Writable<string | null> = writable(null);

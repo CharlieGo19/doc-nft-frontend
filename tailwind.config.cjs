@@ -29,13 +29,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [
-		// plugin(function ({ addUtilities }) {
-		// 	addUtilities({
-		// 		".no-scrollbar::-webkit-scrollbar": {
-		// 			display: "none",
-		// 		},
-		// 	});
-		// }),
-	],
+	plugins: [require("tailwind-scrollbar")],
 };

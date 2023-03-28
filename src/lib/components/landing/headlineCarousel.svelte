@@ -32,7 +32,7 @@
                             sm:before:content-none sm:pl-6 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw] md:rounded-2xl no-scrollbar-x">
 		{#each nfts as { name, creator, src, fp, serial }}
 			<li class="relative w-72 max-h-[300px] h-[300px] shrink-0 snap-center rounded-2xl">
-				<a href="/collection/0.0.12345/{serial}">
+				<a href="/collection/0.0.662909/{serial}">
 					<img
 						{src}
 						alt={name}

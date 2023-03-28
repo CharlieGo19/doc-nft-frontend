@@ -2,9 +2,12 @@
 export const NFT_MARKET_PLACE = "Agorah";
 
 // Application Consts
-export const NFT_MARKET_PLACE_URL = "https://agorah.io/";
-export const AGORAH_API_BASE_URI = "http://localhost:4200/v0/";
+export const NFT_MARKET_PLACE_URL = "https://agorah.io";
+export const AGORAH_API_BASE_URI = "https://api.agorah.io/v0";
 export const HEDERA_LOWERCASE_H = "ħ";
+export const HEDERA_NETWORK = "mainnet";
+export const SUPPORTED_HEDERA_EXPLORER_TOKEN_URI = "https://hashscan.io/mainnet/token";
+export const SUPPORTED_HEDERA_EXPLORER_ACCOUNT_URI = "https://hashscan.io/mainnet/account";
 
 // Wallets
 export const BLADE_WALLET = "Blade Wallet";

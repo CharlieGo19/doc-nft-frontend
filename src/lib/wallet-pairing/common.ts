@@ -5,7 +5,14 @@ import {
 	TOAST_LEVEL_ERROR,
 	TOAST_TIME_TO_LIVE_MEDIUM,
 } from "src/stores/constants";
-import { accountBal, accountId, isWalletPaired, pairedWallet } from "src/stores/wallet";
+import { getUsersNftCuration } from "src/stores/helpers";
+import {
+	accountBal,
+	accountId,
+	isWalletPaired,
+	nftCuration,
+	pairedWallet,
+} from "src/stores/wallet";
 import { manageToast, type Toast } from "../toast/toast";
 import {
 	getBladeAccountBalance,
@@ -13,7 +20,12 @@ import {
 	initBlade,
 	unpairBladeWallet,
 } from "./bladewallet";
-import { getHashpackAccountBalance, getHashpackAccountId, initHashpack } from "./hashpack";
+import {
+	getHashpackAccountBalance,
+	getHashpackAccountId,
+	initHashpack,
+	unpairHashPackWallet,
+} from "./hashpack";
 
 //  TODO: Create Wallet interface for common functions, i.e. getAccBal.
 
@@ -36,6 +48,7 @@ export async function initPairedWallet() {
 		switch (pw) {
 			case HASHPACK_WALLET:
 				initHashpack();
+				console.log(accountId);
 				break;
 			case BLADE_WALLET:
 				await initBlade();
@@ -73,9 +86,10 @@ export async function startPairing(wallet: string): Promise<void> {
  * Unpairs currently paired wallet and cleans up stored wallet objects.
  */
 export async function unpairWallet(): Promise<void> {
+	console.log(pw);
 	switch (pw) {
 		case HASHPACK_WALLET:
-			console.log("Unpair hashpack.");
+			unpairHashPackWallet();
 			//await unpairHashPackWallet();
 			break;
 		case BLADE_WALLET:
@@ -88,7 +102,7 @@ export async function unpairWallet(): Promise<void> {
  *
  * @returns the name of current paired wallet.
  */
-export function checkPairedWallet(): string | null {
+export async function checkPairedWallet(): Promise<string | null> {
 	// TODO: Fix bug here, we should check if wallObj is empty too, if it is and pw is !null then update that case
 	if (!iwp) {
 		if (pw !== null) {
@@ -111,6 +125,7 @@ export async function setAccountInfo(): Promise<void> {
 			case HASHPACK_WALLET:
 				accountId.set(getHashpackAccountId());
 				accountBal.set(await getHashpackAccountBalance());
+				nftCuration.set(await getUsersNftCuration(getHashpackAccountId()));
 				break;
 			case BLADE_WALLET:
 				accountId.set(getBladeAccountId());

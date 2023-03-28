@@ -1,5 +1,7 @@
 import { browser } from "$app/environment";
+import type { CuratedNft } from "src/lib/common/interfaces";
 import type { Writable } from "svelte/store";
+import { AGORAH_API_BASE_URI, PAIRED_WALLET_KEY } from "./constants";
 
 // TODO: As I add more storage options, change return type
 /**
@@ -40,11 +42,27 @@ export function retrieveFromLocal(
 				return JSON.parse(storageEntry);
 			} else {
 				switch (key) {
+					case PAIRED_WALLET_KEY:
+						return storageEntry;
 					default:
 						console.log("Could not handle key:value pair with key: ", key);
 				}
 			}
 		}
 		return def;
+	}
+}
+
+export async function getUsersNftCuration(accountId: string): Promise<CuratedNft[] | undefined> {
+	// TODO: Add correct return type.
+	if (accountId !== null) {
+		const res = await fetch(`${AGORAH_API_BASE_URI}/curation?accountId=${accountId}`);
+		if (res.status !== 200) {
+			const err = await res.json();
+			throw new Error("Couldn't get your NFT information, error returned: ", err.error);
+		} else {
+			const data = await res.json();
+			return data;
+		}
 	}
 }

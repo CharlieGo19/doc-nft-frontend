@@ -1,6 +1,5 @@
 import { HederaNetwork, BladeSigner } from "@bladelabs/blade-web3.js";
 import type { HashConnect } from "hashconnect";
-import type { BigNumber } from "bignumber.js";
 import {
 	BLADE_WALLET,
 	BLADE_WALLET_EXTENSION_NOT_FOUND,
@@ -30,7 +29,7 @@ walletObj.subscribe((val) => {
  * @returns Sets wallet paired flag, name of wallet paired and the wallet object.
  */
 export async function initBlade(): Promise<void | never> {
-	const wallet: string | null = checkPairedWallet();
+	const wallet: string | null = await checkPairedWallet();
 
 	if (wallet === null || wallet === BLADE_WALLET) {
 		const params = {

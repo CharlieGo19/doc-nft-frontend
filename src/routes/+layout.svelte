@@ -3,24 +3,41 @@
 	import { theme, toggleDarkMode } from "src/stores/theme";
 	import { slide } from "svelte/transition";
 	import { linear } from "svelte/easing";
-	import { nftMarketPlaceLogo, SearchDummyData } from "src/stores";
+	import { SearchDummyData } from "src/stores";
 	import { accountId, isWalletPaired } from "src/stores/wallet";
 	import { pairWalletOverlay } from "src/stores/overlays";
 	import WalletOverlay from "$lib/components/overlays/walletOverlay.svelte";
 	import Toasts from "src/lib/components/toast/toasts.svelte";
 	import {
+		AGORAH_API_BASE_URI,
 		AGORAH_BRANDING_LANDING_PAGE_FOOTER_DARK_MODE,
 		AGORAH_BRANDING_LANDING_PAGE_FOOTER_LIGHT_MODE,
 		AGORAH_BRANDING_MENU_LOGO,
 		AGORAH_BRANDING_MENU_LOGO_ALT,
 		NFT_MARKET_PLACE,
 	} from "src/stores/constants";
+	import { onMount } from "svelte";
+	import { initPairedWallet } from "src/lib/wallet-pairing/common";
+
+	onMount(async () => {
+		await initPairedWallet();
+	});
 	// TODO: Discuss this with the guys - what do we want as results, how do we format it.
 	type SearchBox = {
 		users: Array<any>;
 		tokens: Array<any>;
 		collections: Array<any>;
 	};
+
+	async function SearchAgorah() {
+		const res = await fetch(
+			`${AGORAH_API_BASE_URI}/search?` +
+				new URLSearchParams({
+					value: searchValue,
+				})
+		);
+		return await res.json();
+	}
 
 	const searchResults: SearchBox = {
 		users: [],
@@ -44,31 +61,19 @@
 	$: {
 		dark = $theme;
 
-		if (searchValue.length > 0) {
-			searchResults.users = SearchDummyData.filter(
-				(x) =>
-					x.type === "user" &&
-					x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-			);
-			searchResults.collections = SearchDummyData.filter(
-				(x) =>
-					x.type === "collection" &&
-					x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-			);
-			searchResults.tokens = SearchDummyData.filter(
-				(x) =>
-					x.type === "token_id" &&
-					x.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-			);
-		} else {
-			searchResults.users = [];
-			searchResults.collections = [];
-			searchResults.tokens = [];
-		}
-
 		showUserResults = searchResults.users.length > 0 ? true : false;
 		showCollectionResults = searchResults.collections.length > 0 ? true : false;
 		showNftResults = searchResults.tokens.length > 0 ? true : false;
+	}
+
+	async function updateResults() {
+		if (searchValue.length > 3) {
+			const x: any = await SearchAgorah();
+			console.log(x);
+			if (x.token_ids.length > 0) {
+				searchResults.collections = x.token_ids;
+			}
+		}
 	}
 
 	const toggleMenu = (menu: string): any => {
@@ -122,7 +127,6 @@
 
 <div class:dark>
 	<Toasts />
-	<!-- TODO: I REMOVED RELATIVE HERE -->
 	<div
 		class="flex flex-col w-full h-screen bg-gradient-to-b from-shallow-light-mint to-white dark:from-black dark:to-deep-dark-mint overflow-x-hidden md:overflow-y-auto">
 		<div class="md:hidden fixed flex flex-col w-full z-40 bg-black/60 backdrop-blur-lg">
@@ -340,8 +344,9 @@
 						placeholder="Search items, collections & accounts"
 						on:focus={() => toggleMenu("desktopSearch")}
 						bind:value={searchValue}
-						on:keydown={() => {
+						on:keydown={async () => {
 							showDesktopSearch = true;
+							await updateResults();
 						}} />
 					{#if showDesktopSearch}
 						<div
@@ -382,10 +387,10 @@
 										>Collections</span>
 									<div class="grid grid-cols-5 md:grid-cols-3 py-2">
 										{#each searchResults.collections as collection}
-											<!-- TODO: Convert these to links. -->
 											<span
 												class="px-2 hover:rounded-md hover:font-bold hover:bg-shallow-light-mint dark:hover:bg-dark-mint hover:text-black dark:hover:text-white"
-												>{collection.value}</span>
+												><a href="/collection/{collection}">{collection}</a
+												></span>
 										{/each}
 									</div>
 								</div>
